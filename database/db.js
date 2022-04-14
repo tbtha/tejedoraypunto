@@ -18,3 +18,7 @@ const geProductosDB = async () => {
         client.release()
     }
 }
+
+module.exports = {
+    geProductosDB
+}
