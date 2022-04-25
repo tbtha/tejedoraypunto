@@ -6,7 +6,7 @@ CREATE TABLE IF NOT EXISTS usuarios (
     apellido VARCHAR(200),
     password VARCHAR(200),
     email VARCHAR(200),
-    tipo_usuario VARCHAR(200)
+    tipo_usuario VARCHAR(200) 
 );
 
 
