@@ -16,6 +16,16 @@
                 />
               </div>
             </div>
+
+
+             {{!-- <div class="form-group row">
+            <label class="col-sm-2 col-form-label" >Imagen</label>
+            <div class="col-sm-10">
+              <input  class="form-control" type="file" name="foto"/>
+            </div>
+          </div> --}}
+
+
             <div class="form-group row">
               <label  class="col-sm-2 col-form-label">Descripcion</label>
               <div class="col-sm-10">
@@ -72,8 +82,11 @@
     </div>
     <div id="ListaCursos">
       <hr />
+       <p id="alert" ></p>
       <hr />
       <h2>Tabla de Cursos</h2>
+
+     
 
       <div class="container pt-5 w-75">
         <table class="table">
@@ -100,22 +113,22 @@
 </style>
 
 <script>
-  let url = "http://localhost:3000/api/productos";
+
   let tbody = document.getElementById("cuerpo");
-  let producto= document.getElementById("producto");
   let descripcion = document.getElementById("descripcion");
   let stock = document.getElementById("stock");
   let valor = document.getElementById("valor");
   let form = document.getElementById("crearProducto")
+  const alert = document.getElementById("alert")
 
   let productos = [];
   window.onload = getData();
 
   async function getData() {
-    await axios.get(url)
+    await axios.get("/api/productos")
     .then((data) => {
       productos = data.data.msg;
-      console.log(productos)
+      //console.log(productos)
     
       tbody.innerHTML = "";
       productos.forEach((c, i) => {
@@ -128,27 +141,82 @@
           <td>${c.stock}</td>
           <td>${c.valor}</td>
           <td>
-            <button class="btn btn-warning" onclick="prepararCurso(${i},'${
-          c.id
-        }')">Editar</button>
-            <button class="btn btn-danger" onclick="eliminarCurso(${i},'${
-          c.id
-        }')">Eliminar</button>
+            <button class="btn btn-warning" onclick="prepararProducto(${i},'${c.id}')">Editar</button>
+            <button class="btn btn-danger" onclick="eliminarProducto(${i},'${c.id}')">Eliminar</button>
           </td>
         </tr>
       `;
       });
     });
-    producto.value = "";
-    descripcion.value = "";
-    valor.value = "";
-    stock.value = "";
+
   }
  
-// form.addEventListener("submit", async(e) => {
-//const 
-//}) 
+form.addEventListener("submit", async(e) => {
+  e.preventDefault()
+  const dataForm = new FormData(form)
+  const data = Object.fromEntries(dataForm); 
+  const obj = JSON.stringify(data)
+  console.log(data)
+
+  try{
+            const res = await fetch('/api/agregarProducto', {
+                method: 'post',
+                body: obj,
+                headers:{
+                    'Content-Type': 'application/json'
+                }
+          })
+        const data = await res.json()
+         console.log(data)
+        if(!data.ok){
+          alert.innerHTML = `
+           <div class="alert alert-warning container" role="alert">
+            ${data.msg}
+      </div>
+          `
+          setTimeout(function(){
+         alert.innerHTML = "";
+            },5000);
+        }
+          getData()
+  }catch(error){
+    console.log(error)
+    
+  }
+
+}) 
 
 
- 
+  function eliminarProducto(i, id) {
+    const nombre = productos[i].producto
+    axios.delete("/api/eliminarProducto/" + id)
+    .then(() => {
+        alert.innerHTML = `
+      <div class="alert alert-danger container" role="alert">
+       ${nombre} ya fue eliminado
+      </div>
+      `
+      setTimeout(function(){
+         alert.innerHTML = "";
+            },5000);
+      getData();
+    });
+  }
+
+
+
+  function prepararProducto(i, id) {
+    const elemento = productos[i]
+//crear value para los input
+    document
+      .getElementById("editar")
+      .setAttribute("onclick", `editarCurso('${id}')`);
+    document.getElementById("agregar").style.display = "none";
+    document.getElementById("editar").style.display = "block";
+  }
+
+
+
+//crear funcion editar curso 
+
 </script>

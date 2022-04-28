@@ -23,13 +23,9 @@
 
   
 
-  nav{
+  nav, .img{
         background-color: #BB5365;
-        width: 90%;
+        width: 100%;
 
 }
 
-
-/* section{
-  background-image: url("/img/img2.jpeg");
-} */

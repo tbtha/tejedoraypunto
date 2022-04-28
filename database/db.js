@@ -92,30 +92,46 @@ const crearProductoDB = async (producto,descripcion,stock,valor) => {
 }
 
 
+const eliminarProductoDB = async(id) => {
+    const client = await pool.connect()
+    const query = {
+        text: "DELETE FROM productos WHERE id = $1 RETURNING*;",
+        values: [id]
+    }
+    try{
+        const respuesta = await client.query(query);
+        return respuesta.rows;
+    }catch(error){
+        console.log(error)
+        return error
+    }finally{
+        client.release()
+    }
+}
 
-// admi.hbs
-// const nuevoCurso = () => {
-//     producto;
-//     descripcion;
-//     stock;
-//     valor;
-//     let data = {
-//      producto:producto.value,
-//      descripcion:descripcion.value,
-//      stock:stock.value,
-//       valor: valor.value,
-//     };
-  
-//     console.log(data);
-//     axios.post("/api/productos", data)
-//     console.log(data)
-//     .then(() => {
-//       getData()
-//     console.log(fechaInicio.value)
-//     });
-  
 
-//   }
+const editarProductoDB = async(producto,descripcion,stock,valor, id) => {
+    const client = await pool.connect()
+    const query = {
+        text: "UPDATE productos SET producto= $1, descripcion= $2, stock= $3,valor= $4 WHERE id = $5 RETURNING*;",
+        values: [producto,descripcion,stock,valor, id]
+    }
+    try{
+        const respuesta = await client.query(query);
+        return {
+            ok:true,
+            msg: respuesta.rows[0]
+        }
+    }catch(error){
+        console.log(error)
+        return {
+            ok:false,
+            msg: error.message ,
+        }
+    }finally{
+        client.release()
+    }
+}
  
 
 
@@ -125,5 +141,7 @@ module.exports = {
     getProductosDB,
     createUserDB,
     getUserMailDB,
-    crearProductoDB
+    crearProductoDB,
+    eliminarProductoDB,
+    editarProductoDB
 }
