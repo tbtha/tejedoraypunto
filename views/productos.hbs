@@ -1,5 +1,6 @@
-<div class="container">
+<div class="container ">
     <div class="py-5">
+        <br><br>
         <h2 id="info">Productos Disponibles</h2>
       <hr class="w-100" />
       <p id="alerta"></p>
@@ -33,15 +34,7 @@
 
 {{!-- pintar alerta para decir que se agrego un producto al carrito --}}
 
-{{!-- alert.innerHTML = `
-                <div class="container" >
-        <div class="alert alert-danger container mt-3" role="alert">
-            <p>Agregaste un producto a tu carrito</p>
-        </div>
-      </div>`
-        setTimeout(function(){
-         alert.innerHTML = "";
-            },5000); --}}
+
 
 <script>
 
@@ -114,6 +107,15 @@ const pintarCards = (data) => {
 const agregarCarrito = (e) => {
     if(e.target.classList.contains('btn-dark')){
         setCarrito(e.target.parentElement)
+        alerta.innerHTML = `
+                <div class="container" >
+        <div class="alert alert-danger container mt-3" role="alert">
+            <p>Agregaste un producto a tu carrito</p>
+        </div>
+      </div>`
+        setTimeout(function(){
+         alerta.innerHTML = "";
+            },3000);
         
     }
     e.stopPropagation()

@@ -1,10 +1,11 @@
-  <body >
-    <div id="AgregarCurso">
+    <div id="AgregarCurso py-5">
+      <br><br><br>
       <div id="info">
           <h2 class="pt-3">Agregar Producto</h2>
-
+      <hr class="w-100" />
+      <hr class="w-100" />
       <form id="crearProducto">
-        <div class="container pt-5 w-50">
+        <div class="container pt-3 w-50">
           <div>
             <div class="form-group row">
               <label  class="col-sm-2 col-form-label">Producto</label>
@@ -64,14 +65,14 @@
             <button
             type="submit"
               id="agregar"
-              class="m-auto btn btn-success"
+              class="my-2 btn btn-success"
             >
               Agregar
             </button>
             <button
               onclick="editarCurso()"
               id="editar"
-              class="m-auto btn btn-info"
+              class="my-2 btn btn-info"
             >
               Editar
             </button>
@@ -108,7 +109,7 @@
     </div>
      </div>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-  </body>
+
   <style>
   body {
     text-align: center;
@@ -127,21 +128,44 @@
 
 document.addEventListener("DOMContentLoaded", () => {
   if(!localStorage.getItem('token')){
-        info.innerHTML = `
+      return  info.innerHTML = `
          <hr class="w-100" />
         <hr class="w-100" />
         <h2>vista solo para administacion</h2>
-        <p><a href="/login"> Iniciar sesión</a></p>
-        <p>¿Aún no tienes cuenta? <a href="/registro">Regístrate</a></p>
-
-        
+        <p><a href="/login"> Iniciar sesión</a></p>     
         `
         }
+        validacion()
+  });//document DOMJHFJ
 
-  let productos = [];
-  window.onload = getData();
+const validacion = async() => {
+  try{
+    const res = await fetch("/api/administacion", {
+      method : 'get',
+      headers : {
+        Authorization: `Bearer ${localStorage.getItem('token')}`
+      }
+    })
+    const data = await res.json()
+      if(data.msg == 'administrador'){
+           let productos = [];
+          window.onload = getData();
+      }
+      if(data.msg == 'cliente'){
+          return  info.innerHTML = `
+        <hr class="w-100" />
+        <h2>No tienes acceso a la administracion</h2>
+         <hr class="w-100" />
 
-  async function getData() {
+        `
+      }
+  }catch(error){
+      console.log(error)
+  }
+}
+
+
+const getData = async() => {
     await axios.get("/api/productos",{
       headers : {
         Authorization: `Bearer ${localStorage.getItem('token')}`
@@ -179,15 +203,12 @@ form.addEventListener("submit", async(e) => {
   const obj = JSON.stringify(data)
   console.log(data)
 
-
-
   try{
             const res = await fetch('/api/agregarProducto', {
                 method: 'post',
                 body: obj,
                 headers:{
-                    'Content-Type': 'application/json',
-                    Authorization: `Bearer ${localStorage.getItem('token')}`
+                    'Content-Type': 'application/json'
                 }
           })
         const data = await res.json()
@@ -211,13 +232,9 @@ form.addEventListener("submit", async(e) => {
 }) 
 
 
- async function eliminarProducto(i, id) {
+  const eliminarProducto = (i, id) => {
     const nombre = productos[i].producto
-    axios.delete("/api/eliminarProducto/" + id ,{
-      headers : {
-        Authorization: `Bearer ${localStorage.getItem('token')}`
-      }
-    })
+    axios.delete("/api/eliminarProducto/" + id)
     .then(() => {
         alert.innerHTML = `
       <div class="alert alert-danger container" role="alert">
@@ -233,7 +250,7 @@ form.addEventListener("submit", async(e) => {
 
 
 
-  function prepararProducto(i, id) {
+const prepararProducto = (i, id) => {
     const elemento = productos[i]
 //crear value para los input
     document
@@ -247,5 +264,5 @@ form.addEventListener("submit", async(e) => {
 
 //crear funcion editar curso 
 
-});//document DOMJHFJ
+
 </script>

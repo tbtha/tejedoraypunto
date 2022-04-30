@@ -1,8 +1,7 @@
 const express = require("express");
 const expressFileUpload = require("express-fileupload")
 
-const { getProductos, createUser, loginUser, crearProducto, eliminarProducto, traerNombreP } = require("../controllers/tj.controller");
-const requiereAdmi = require("../middlewares/requiereAdmi");
+const { getProductos, createUser, loginUser, crearProducto, eliminarProducto, traerNombreP, validarAdmi } = require("../controllers/tj.controller");
 const requiereAut = require("../middlewares/requiereAutenticacion");
 
 
@@ -17,8 +16,9 @@ router.get("/productos", requiereAut,getProductos)
 router.get("/inicio",traerNombreP)
 router.post("/createUser", createUser)
 router.post("/login", loginUser)
-router.post("/agregarProducto",requiereAdmi ,crearProducto)
-router.delete("/eliminarProducto/:id", requiereAdmi,eliminarProducto)
+router.post("/agregarProducto" ,crearProducto)
+router.delete("/eliminarProducto/:id",eliminarProducto)
+router.get("/administacion", validarAdmi)
 
 
 module.exports = router;

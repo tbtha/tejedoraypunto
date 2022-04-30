@@ -4,7 +4,7 @@ const jwt = require("jsonwebtoken")
 const {nanoid} = require("nanoid");
 
 
-const {getProductosDB, createUserDB, getUserMailDB, crearProductoDB, editarProductoDB, eliminarProductoDB, traernombreproductoDB} = require("../database/db")
+const {getProductosDB, createUserDB, getUserMailDB, crearProductoDB, editarProductoDB, eliminarProductoDB, traernombreproductoDB, getUserAdmiDB} = require("../database/db")
 
 const getProductos = async(req,res) => {
     const respuesta = await getProductosDB();
@@ -19,7 +19,7 @@ const getProductos = async(req,res) => {
 
     }
 
-    const traerNombreP = async(req,res) => {
+const traerNombreP = async(req,res) => {
         const respuesta = await traernombreproductoDB();
         if(!respuesta.ok){
             return res.status(500).json({
@@ -192,6 +192,44 @@ const editarProducto = async(req,res) => {
     }
 }
 
+const validarAdmi = async (req,res) => {
+    try {
+        if (!req.headers?.authorization) {
+            throw new Error("No existe el token");
+        }
+        // console.log(req.headers.authorization.split(' ')[1])
+
+        const token = req.headers.authorization.split(' ')[1]
+
+        const payload = jwt.verify(token, process.env.JWT_SECRET)
+        const idUsuario = payload.id
+
+        const respuesta = await getUserAdmiDB(idUsuario)
+
+        
+        if(respuesta.msg.tipo_usuario == 'administrador'){
+          return res.json({
+            ok:true,
+            msg: 'administrador'
+        })
+        }
+        if(respuesta.msg.tipo_usuario == 'cliente'){
+            return res.json({
+                ok:false,
+                msg: 'cliente'
+            })
+        }
+
+    } catch (error) {
+        console.log(error)
+        return res.status(401).json({
+            ok:false,
+            msg: error.message
+        })
+    }
+}
+
+
 module.exports = {
     getProductos,
     traerNombreP,
@@ -199,5 +237,38 @@ module.exports = {
     loginUser,
     crearProducto,
     eliminarProducto,
-    editarProducto
+    editarProducto,
+    validarAdmi
 }
+
+
+// const requiereAdmi = async(req,res, next) => {
+//     try {
+        
+//         if (!req.headers?.authorization) {
+//             throw new Error("No existe el token");
+//         }
+//         const token = req.headers.authorization.split(' ')[1]
+//         const payload = jwt.verify(token, process.env.JWT_SECRET)
+       
+//         const idUsuario = payload.id
+
+//         const respuesta = await getUserAdmiDB(idUsuario)
+
+//         console.log(respuesta.msg.tipo_usuario)
+//         if(respuesta.msg.tipo_usuario == 'administrador'){
+//           return  next()
+//         }
+//         return res.json({
+//             ok:false,
+//             msg: "No tienes autorizacion para ver esta vista"
+//         })
+
+//     } catch (error) {
+//         console.log(error)
+//         return res.status(401).json({
+//             ok:false,
+//             msg: error.message
+//         })
+//         }
+//     }

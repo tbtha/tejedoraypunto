@@ -1,5 +1,5 @@
-<section>
       <div class="py-5" >
+        <br><br>
       <h2>Iniciar Sesión</h2>
       <hr class="w-100" />
 
@@ -21,9 +21,7 @@
     </div>
 
   
-</section>
 
-  
  <script>
      const formulario = document.getElementById('formulario')
 
@@ -43,7 +41,6 @@
                 }
           })
         const data = await res.json()
-        console.log(data)
         const errores = document.getElementById("errores")
         if(!data.ok){
        return errores.innerHTML = `
@@ -55,11 +52,12 @@
         `
         }
          localStorage.setItem('token', data.token)
+        // return console.log("listo")
          return window.location.href = "/productos"
 //consulta get para traer a usuario o trabajador y crear midleware 
         
 
-        console.log(data)
+        //console.log(data) true token
           }catch(error){
               console.log(error)
           }
