@@ -211,7 +211,7 @@ form.addEventListener("submit", async(e) => {
 }) 
 
 
-  function eliminarProducto(i, id) {
+ async function eliminarProducto(i, id) {
     const nombre = productos[i].producto
     axios.delete("/api/eliminarProducto/" + id ,{
       headers : {
