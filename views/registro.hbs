@@ -1,4 +1,4 @@
-    <div class="py-4">
+    <div class="py-5 my-5">
       <h2>Registro</h2>
       <hr class="w-100" />
 
@@ -27,12 +27,12 @@
         </div>
         <p id="errorRegistro" ></p>
         <button type="submit" class="btn btn-warning mb-3">Registrarme</button>
-        <p><a href="http://localhost:3000/login"> Iniciar sesión</a></p>
+        <p><a href="/login"> Iniciar sesión</a></p>
       </form>
-    </div>
+    </div >
 
 
-     <script>
+<script>
 
      const registroForm = document.getElementById("registroForm");
 
@@ -41,12 +41,16 @@
           e.preventDefault()
           const dataForm = new FormData(registroForm)
           const data = Object.fromEntries(dataForm); 
-          console.log(data)
           const obj = JSON.stringify(data)
 
           
           if(data.password !== data.passwordConfirm){
-          return errorRegistro.innerHTML = "Las contraseñas no coinciden";
+          return errorRegistro.innerHTML = `
+        <div class="container" >
+          <div class="alert alert-danger container mt-3" role="alert">
+            <p> Las contraseñas no coinciden </p>
+          </div>
+        </div>`
           }
 
           try{
@@ -58,18 +62,21 @@
                 }
           })
         const datos = await res.json()
-      console.log(datos)
+
         if(!datos.ok){
-          console.log(data)
-        return errorRegistro.innerHTML = datos.msg
+        return errorRegistro.innerHTML = `
+      <div class="container" >
+        <div class="alert alert-danger container mt-3" role="alert">
+            <p>${datos.msg}</p>
+        </div>
+      </div>
+        `
+
         }
         return window.location.href = "/login";
 
-    
-
-        console.log(data)
           }catch(error){
-              console.log(error)
+            console.log(error)
           }
       })
           

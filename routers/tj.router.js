@@ -1,7 +1,9 @@
 const express = require("express");
 const expressFileUpload = require("express-fileupload")
 
-const { getProductos, createUser, loginUser, crearProducto, eliminarProducto } = require("../controllers/tj.controller");
+const { getProductos, createUser, loginUser, crearProducto, eliminarProducto, traerNombreP } = require("../controllers/tj.controller");
+const requiereAdmi = require("../middlewares/requiereAdmi");
+const requiereAut = require("../middlewares/requiereAutenticacion");
 
 
 const router = express.Router();
@@ -11,11 +13,12 @@ router.use(express.urlencoded({extended: true}));
 router.use(express.json());
 
 
-router.get("/productos", getProductos)
+router.get("/productos", requiereAut,getProductos)
+router.get("/inicio",traerNombreP)
 router.post("/createUser", createUser)
 router.post("/login", loginUser)
-router.post("/agregarProducto", crearProducto)
-router.delete("/eliminarProducto/:id", eliminarProducto)
+router.post("/agregarProducto",requiereAdmi ,crearProducto)
+router.delete("/eliminarProducto/:id", requiereAdmi,eliminarProducto)
 
 
 module.exports = router;

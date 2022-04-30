@@ -19,21 +19,8 @@
         <p>¿Aún no tienes cuenta? <a href="/registro">Regístrate</a></p>
       </form>
     </div>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
+
+  
 </section>
 
   
@@ -59,9 +46,17 @@
         console.log(data)
         const errores = document.getElementById("errores")
         if(!data.ok){
-       return errores.innerHTML = data.msg
+       return errores.innerHTML = `
+      <div class="container" >
+        <div class="alert alert-danger container mt-3" role="alert">
+            <p>${data.msg}</p>
+        </div>
+      </div>
+        `
         }
-        return window.location.href = "/productos";
+         localStorage.setItem('token', data.token)
+         return window.location.href = "/productos"
+//consulta get para traer a usuario o trabajador y crear midleware 
         
 
         console.log(data)

@@ -4,7 +4,7 @@ const jwt = require("jsonwebtoken")
 const {nanoid} = require("nanoid");
 
 
-const {getProductosDB, createUserDB, getUserMailDB, crearProductoDB, editarProductoDB, eliminarProductoDB} = require("../database/db")
+const {getProductosDB, createUserDB, getUserMailDB, crearProductoDB, editarProductoDB, eliminarProductoDB, traernombreproductoDB} = require("../database/db")
 
 const getProductos = async(req,res) => {
     const respuesta = await getProductosDB();
@@ -18,6 +18,20 @@ const getProductos = async(req,res) => {
         msg: respuesta.msg})
 
     }
+
+    const traerNombreP = async(req,res) => {
+        const respuesta = await traernombreproductoDB();
+        if(!respuesta.ok){
+            return res.status(500).json({
+                ok:false,
+                msg: respuesta.msg})
+        }
+        return res.json({
+            ok:true,
+            msg: respuesta.msg})
+    
+        }
+
 
 const createUser = async(req,res) => {
     const {nombre,apellido,password,email} = req.body;
@@ -44,13 +58,10 @@ const createUser = async(req,res) => {
         const respuesta = await createUserDB(nombre,apellido,hashPassword,email)
         if(!respuesta.ok) throw new Error(respuesta.msg);
 
-        // jsonwebtoken
-        const payload = {id: respuesta.id}
-        const token = jwt.sign(payload, process.env.JWT_SECRET,{expiresIn : "24h"})
 
         return res.json({
             ok:true,
-            token
+            msg: respuesta.msg,
         })
     } catch (error) {
         console.log(error)
@@ -183,6 +194,7 @@ const editarProducto = async(req,res) => {
 
 module.exports = {
     getProductos,
+    traerNombreP,
     createUser,
     loginUser,
     crearProducto,

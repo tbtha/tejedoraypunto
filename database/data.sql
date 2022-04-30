@@ -10,11 +10,12 @@ CREATE TABLE IF NOT EXISTS usuarios (
 );
 
 
+
 --2. Migracion tabla productos
 
 CREATE TABLE  IF NOT EXISTS productos (
     id SERIAL PRIMARY KEY,
-    foto VARCHAR(200),
+-- 
     producto VARCHAR(200),
     descripcion VARCHAR(200),
     stock INT,

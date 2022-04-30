@@ -19,12 +19,31 @@ const getProductosDB = async () => {
     }
 }
 
+const traernombreproductoDB = async () => {
+    const client = await pool.connect()
+    try{
+        const respuesta = await client.query("SELECT producto FROM Productos;")
+        return {
+            ok:true,
+            msg: respuesta.rows,
+        }
+    }catch(e){
+        console.log(e)
+        return {
+            ok:false,
+            msg: error.message ,
+        }
+    }finally{
+        client.release()
+    }
+}
+
 
 const createUserDB = async (nombre,apellido,password,email) => {
     const client = await pool.connect()
     const query = {
-        text: "INSERT INTO usuarios (nombre,apellido,password,email) values($1,$2,$3,$4) RETURNING*",
-        values: [nombre,apellido,password,email]
+        text: "INSERT INTO usuarios (nombre,apellido,password,email,tipo_usuario) values($1,$2,$3,$4,$5) RETURNING*",
+        values: [nombre,apellido,password,email,"cliente"]
     }
     try{
         const respuesta = await client.query(query)
@@ -50,6 +69,29 @@ const getUserMailDB = async (email) => {
     const query = {
         text: "SELECT * FROM usuarios WHERE email = $1",
         values:[email]
+    }
+    try{
+        const respuesta = await client.query(query)
+        return {
+            ok:true,
+            msg: respuesta.rows[0],
+        }
+    }catch(e){
+        console.log(e)
+        return {
+            ok:false,
+            msg: error.message ,
+        }
+    }finally{
+        client.release()
+    }
+}
+
+const getUserAdmiDB = async (id) => {
+    const client = await pool.connect()
+    const query = {
+        text: "SELECT tipo_usuario FROM usuarios WHERE id = $1",
+        values:[id]
     }
     try{
         const respuesta = await client.query(query)
@@ -139,8 +181,10 @@ const editarProductoDB = async(producto,descripcion,stock,valor, id) => {
 
 module.exports = {
     getProductosDB,
+    traernombreproductoDB,
     createUserDB,
     getUserMailDB,
+    getUserAdmiDB,
     crearProductoDB,
     eliminarProductoDB,
     editarProductoDB
