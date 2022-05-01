@@ -1,0 +1,25 @@
+<p id="desactivar"></p>
+
+<script>
+    const desactivar = document.getElementById("desactivar")
+
+   document.addEventListener("DOMContentLoaded", () => {
+   if(!localStorage.getItem('token')){
+       desactivar.innerHTML = "";
+   }
+   if(localStorage.getItem('token')){
+       desactivar.innerHTML = `
+        <button onclick="cerrarSesion()">Cerrar Sesion</button>
+       `
+   }
+   })
+
+const cerrarSesion = () => {
+     localStorage.removeItem('token')
+     localStorage.removeItem('carrito')
+     window.location.href = "/"
+}
+
+
+
+</script>
