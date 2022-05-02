@@ -1,6 +1,5 @@
 <div class="container ">
     <div class="py-5">
-
         <h2 id="info">Productos Disponibles</h2>
       <hr class="w-100" />
       <p id="alerta"></p>
@@ -9,7 +8,6 @@
         
     </div>
 </div>
-
 
 {{!-- TEMPLATE DINAMICO --}}
 
@@ -30,11 +28,6 @@
 
 </template>
  {{>modal}}
-
-
-{{!-- pintar alerta para decir que se agrego un producto al carrito --}}
-
-
 
 <script>
 
@@ -57,8 +50,6 @@ document.addEventListener("DOMContentLoaded", () => {
         <h2>Debes iniciar sesion para poder ver los productos disponibles</h2>
         <p><a href="/login"> Iniciar sesión</a></p>
         <p>¿Aún no tienes cuenta? <a href="/registro">Regístrate</a></p>
-
-        
         `
         }
     fetchData()
@@ -80,7 +71,9 @@ const fetchData = async() => {
                 }
         })
         const data = await respuesta.json()
-        pintarCards(data.msg)
+
+        const filtrosStock = data.msg.filter(element => element.stock >= 1 )
+        pintarCards(filtrosStock)
     }catch(error){
         console.log(error)
     }
@@ -88,7 +81,7 @@ const fetchData = async() => {
 
 const pintarCards = (data) => {
         //console.log(data)
-        data.forEach(producto => {
+            data.forEach(producto => {
             templateCard.querySelector("h5").textContent = producto.producto
             templateCard.querySelector("p").textContent = producto.descripcion
             templateCard.querySelector("span").textContent = producto.valor

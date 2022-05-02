@@ -37,3 +37,8 @@ app.use("/", require("./routers/vistas.router"))
 
 
 app.listen(PORT, console.log("servidor activo puerto: ",PORT))
+
+
+
+
+

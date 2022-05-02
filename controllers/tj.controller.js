@@ -96,7 +96,7 @@ const loginUser =  async(req,res) => {
 
          // generar token
         const payload = {id : msg.id}
-        const token = jwt.sign(payload, process.env.JWT_SECRET, {expiresIn : "24h"})
+        const token = jwt.sign(payload, process.env.JWT_SECRET)
 
         return res.json({
             ok:true,
