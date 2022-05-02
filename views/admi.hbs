@@ -89,11 +89,12 @@
 
      
 
-      <div class="container col-12">
-        <table class="table">
+      <div class="container">
+       <div class="row" >
+          <div class="col-12">
+                  <table class="table">
           <thead class="thead-dark">
             <tr>
-              <th scope="col">#</th>
               <th scope="col">Nombre</th>
               <th scope="col">Descripcion</th>
               <th scope="col">Stock</th>
@@ -103,10 +104,13 @@
           </thead>
           <tbody id="cuerpo"></tbody>
         </table>
+        </div>
+       </div>
       </div>
       </div>      
     </div>
      </div>
+
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 
   <style>
@@ -179,7 +183,6 @@ const getData = async() => {
       //  
         tbody.innerHTML += `
         <tr>
-          <td>${i + 1}</td>
           <td>${c.producto}</td>
           <td>${c.descripcion}</td>
           <td>${c.stock}</td>

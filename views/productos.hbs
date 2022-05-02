@@ -140,7 +140,7 @@ const setCarrito = objeto => {
 const pintarCarrito = () => {
     items.innerHTML= "";
     Object.values(carrito).forEach(p => {
-        templateCarrito.querySelector("th").textContent = p.id
+
         templateCarrito.querySelectorAll("td")[0].textContent = p.producto
         templateCarrito.querySelectorAll("td")[1].textContent = p.cantidad
         templateCarrito.querySelectorAll("td")[2].textContent = `$${p.cantidad * p.valor}`
