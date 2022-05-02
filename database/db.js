@@ -87,10 +87,10 @@ const getUserMailDB = async (email) => {
     }
 }
 
-const getUserAdmiDB = async (id) => {
+const getUserDB = async (id) => {
     const client = await pool.connect()
     const query = {
-        text: "SELECT tipo_usuario FROM usuarios WHERE id = $1",
+        text: "SELECT id,nombre,apellido,email,tipo_usuario FROM usuarios WHERE id = $1",
         values:[id]
     }
     try{
@@ -184,7 +184,7 @@ module.exports = {
     traernombreproductoDB,
     createUserDB,
     getUserMailDB,
-    getUserAdmiDB,
+    getUserDB,
     crearProductoDB,
     eliminarProductoDB,
     editarProductoDB
