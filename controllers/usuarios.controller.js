@@ -184,7 +184,7 @@ const ordenCompra = async (req,res) => {
         <h4>Equipo Tejedora y Punto </h4>
         `
 
-        //  const correo = await enviar(usuarioParse.email,subject,html)
+         const correo = await enviar(usuarioParse.email,subject,html)
         if(!correo.ok) console.log(correo.msg)
         if(correo.ok) console.log(correo.msg)
        
