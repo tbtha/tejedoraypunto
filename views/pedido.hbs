@@ -36,6 +36,7 @@
     
 </div >
 <form id="form">
+    <p id="alert"></p>
    <p id="botton"></p>
 
 </form>
@@ -78,6 +79,7 @@
     const infoUsuario = document.getElementById("infoUsuario")
     const boton = document.getElementById("botton")
     const form = document.getElementById("form")
+    const alert = document.getElementById("alert")
     let carrito = {}
 
 
@@ -141,16 +143,42 @@ const pintarUsuario = (data) => {
 
 const enviarPedido = async(info) => {
     const newinfo = JSON.stringify(info)
+    const newcarrito = JSON.stringify(carrito)
+    const body = JSON.stringify([newcarrito, newinfo])
+    alert.innerHTML = `
+    <div class="spinner-border text-warning" role="status">
+         <span class="visually-hidden">Loading...</span>
+    </div>`
     try{
     const res = await fetch("/api/correo", {
       method : 'post',
-      body: newinfo,
+      body,
        headers:{
                     'Content-Type': 'application/json'
                 }
     })
     const data = await res.json()
-    console.log(data)
+    if(data.ok){
+        alert.innerHTML = `
+        <div class="container" >
+            <div class="alert alert-success container mt-3" role="alert">
+                <p>Hemos recibido tu orden!</p>
+                <p>Te enviamos un e-mail con las intrucciones para que puedas finalizar la compra.</p>
+                
+                <p>Recuerda revisar tu bandeja de SPAM </p> 
+            </div>
+      </div>
+        `
+    }
+    if(!data.ok){
+         alert.innerHTML = `
+        <div class="container" >
+            <div class="alert alert-danger container mt-3" role="alert">
+                <p>No fue posible enviar su orden de compra, intentelo mas tarde</p> 
+            </div>
+      </div>
+        `
+    }
   }catch(error){
       console.log(error)
   }
@@ -175,8 +203,6 @@ const validacion = async() => {
         enviarPedido(data.msg)
             
   } )
-
-
 
   }catch(error){
       console.log(error)

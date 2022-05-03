@@ -176,6 +176,55 @@ const editarProductoDB = async(producto,descripcion,stock,valor, id) => {
 }
  
 
+const insertCompraDB = async (id,usuarioId,total) => {
+    const client = await pool.connect()
+    const fecha = Date.now()
+    const fechaActual = new Date(fecha)
+
+    const query = {
+        text: "INSERT INTO compras (id,usuario_id_fk,fecha,total) values($1,$2,$3,$4) RETURNING*",
+        values: [id,usuarioId,fechaActual,total]
+    }
+    try{
+        const respuesta = await client.query(query)
+        return {
+            ok:true,
+            msg: respuesta.rows[0]
+        }
+    }catch(e){
+        console.log(e)
+        return {
+            ok:false,
+            msg: error.message ,
+        }
+    }finally{
+        client.release()
+    }
+}
+
+const insertDetalleDB = async (id,compraId, productoId,cantidad,precio) => {
+    const client = await pool.connect()
+
+    const query = {
+        text: "INSERT INTO detalle_compras (id,compra_id_fk,producto_id_fk,cantidad,precio) values($1,$2,$3,$4,$5) RETURNING*",
+        values: [id,compraId, productoId,cantidad,precio]
+    }
+    try{
+        const respuesta = await client.query(query)
+        return {
+            ok:true,
+            msg: respuesta.rows[0]
+        }
+    }catch(e){
+        console.log(e)
+        return {
+            ok:false,
+            msg: error.message ,
+        }
+    }finally{
+        client.release()
+    }
+}
 
 
 
@@ -187,5 +236,7 @@ module.exports = {
     getUserDB,
     crearProductoDB,
     eliminarProductoDB,
-    editarProductoDB
+    editarProductoDB,
+    insertCompraDB,
+    insertDetalleDB
 }

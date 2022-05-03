@@ -25,7 +25,7 @@ CREATE TABLE  IF NOT EXISTS productos (
 --3. Migracion tabla Compras
 
 CREATE TABLE IF NOT EXISTS compras (
-    id SERIAL PRIMARY KEY,
+    id VARCHAR(200) PRIMARY KEY,
     usuario_id_fk INT ,
     fecha DATE,
     total INT,
@@ -35,8 +35,8 @@ CREATE TABLE IF NOT EXISTS compras (
 --3. Migracion tabla detalle compras
 
 CREATE TABLE IF NOT EXISTS detalle_compras (
-    id SERIAL PRIMARY KEY,
-    compra_id_fk INT ,
+    id VARCHAR(200) PRIMARY KEY,
+    compra_id_fk VARCHAR(200) ,
     producto_id_fk INT ,
     CANTIDAD INT,
     PRECIO INT,
