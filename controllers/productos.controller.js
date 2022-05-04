@@ -95,6 +95,9 @@ const editarProducto = async(req,res) => {
 
 
 
+
+
+
 module.exports = {
     getProductos,
     traerNombreP,

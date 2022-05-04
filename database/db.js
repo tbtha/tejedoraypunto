@@ -19,6 +19,7 @@ const getProductosDB = async () => {
     }
 }
 
+
 const traernombreproductoDB = async () => {
     const client = await pool.connect()
     try{
@@ -226,6 +227,29 @@ const insertDetalleDB = async (id,compraId, productoId,cantidad,precio) => {
     }
 }
 
+const stockProductoDB = async (stock,id) => {
+    const client = await pool.connect()
+
+    const query = {
+        text: "UPDATE productos SET stock= $1 WHERE id = $2 RETURNING*;",
+        values: [stock,id]
+    }
+    try{
+        const respuesta = await client.query(query)
+        return {
+            ok:true,
+            msg: respuesta.rows[0]
+        }
+    }catch(e){
+        console.log(e)
+        return {
+            ok:false,
+            msg: error.message ,
+        }
+    }finally{
+        client.release()
+    }
+}
 
 
 module.exports = {
@@ -238,5 +262,7 @@ module.exports = {
     eliminarProductoDB,
     editarProductoDB,
     insertCompraDB,
-    insertDetalleDB
+    insertDetalleDB,
+    stockProductoDB
+
 }

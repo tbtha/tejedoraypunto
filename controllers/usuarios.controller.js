@@ -3,7 +3,7 @@ const jwt = require("jsonwebtoken")
 const bcrypt = require("bcrypt")
 const {v4 : uuidv4} = require ("uuid"); 
 
-const { createUserDB, getUserMailDB,getUserDB, insertCompraDB, insertDetalleDB} = require("../database/db")
+const { createUserDB, getUserMailDB,getUserDB, insertCompraDB, insertDetalleDB, stockProductoDB} = require("../database/db")
 
 const enviar = require("../nodemailer/nodemailer")
 
@@ -153,24 +153,26 @@ const infoUsuario = async (req,res) => {
 // id aleatorio 
 
 const ordenCompra = async (req,res) => {
-    const idcompras = uuidv4().slice(0,6)
-    const idDetalle = uuidv4().slice(0,6)
     const carritoParse = JSON.parse(req.body[0])
     const usuarioParse = JSON.parse(req.body[1])
     const valorTotal  = Object.values(carritoParse).reduce((acc,{cantidad, valor}) => acc + cantidad * valor,0)
 
     try {
 
-       
-        // await insertDetalleDB(idDetalle,idcompras,idProducto,elemento.cantidad,elemento.valor )
-         await insertCompraDB(idcompras, usuarioParse.id,valorTotal)
+       const compra = await insertCompraDB(uuidv4().slice(0,6), usuarioParse.id,valorTotal)
+        
+        Object.values(carritoParse).forEach(async(elemento) => {
+            const nuevoStock = elemento.stock - elemento.cantidad
+            await insertDetalleDB(uuidv4().slice(0,6),compra.msg.id,elemento.id,elemento.cantidad,elemento.valor ) 
+            await stockProductoDB(nuevoStock,elemento.id)
+        });
 
 
         const subject = `Bienvenido a Tejedora y Punto `
         const html = `
         <h4>Hola ${usuarioParse.nombre} ${usuarioParse.apellido}</h4>
         <h5>Hemos recibido correctamente tu pedido </h5>
-        <h5>Este es el ID de tu compra: ${idcompras}</h5>
+        <h5>Este es el ID de tu compra: ${compra.msg.id}</h5>
         <h5>Este es el TOTAL de tu compra: $${valorTotal}</h5>
 
         <h5>Para finalizar tu compra, te dejamos los datos de transferencia para que hagas el pago de tu pedido a la siguientes cuenta:</h5>
@@ -184,7 +186,7 @@ const ordenCompra = async (req,res) => {
         <h4>Equipo Tejedora y Punto </h4>
         `
 
-         const correo = await enviar(usuarioParse.email,subject,html)
+        const correo = await enviar(usuarioParse.email,subject,html)
         if(!correo.ok) console.log(correo.msg)
         if(correo.ok) console.log(correo.msg)
        

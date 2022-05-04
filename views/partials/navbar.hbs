@@ -1,6 +1,3 @@
-
-
-
 <nav class="navbar navbar-expand-lg navbar-dark ">
   <div class="mx-auto">
             <img src="/img/tejedora-removebg-preview.png"width="100%" alt="logo">
@@ -14,8 +11,7 @@
       <div class="navbar-nav">
         <a class="nav-link active" aria-current="page" href="/">Inicio</a>
         <a class="nav-link active" href="/productos">Productos Disponibles</a>
-        <a class="nav-link active" href="/login">Iniciar sesion</a>
-        <a class="nav-link active" href="/admi">Administracion</a>
+        <a id="inicioSesion"></a>
       </div>
     </div> 
       <div class="">
@@ -23,3 +19,20 @@
       </div>
   </div>
 </nav>
+
+
+<script>
+
+  const inicioSesion = document.getElementById("inicioSesion");
+
+  if(!localStorage.getItem("token")){
+    inicioSesion.innerHTML = `
+          <a class="nav-link active" href="/login">Iniciar sesion</a>
+    `
+  }
+  if(localStorage.getItem("token")){
+    inicioSesion.innerHTML = "";
+  }
+
+
+</script>

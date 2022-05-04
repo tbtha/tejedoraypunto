@@ -1,1 +1,1 @@
-# DEPLOY (TEJEDORAYPUNTO[https://app-tejedora.herokuapp.com/])
+# DEPLOY https://app-tejedora.herokuapp.com/

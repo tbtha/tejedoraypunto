@@ -2,18 +2,18 @@
     background: #fcfbf8;
     color: #4a4a4a;
     text-shadow: 0px 0px 1px black;
-    font-family: sans-serif;
+    font-family: 'Montserrat Alternates', sans-serif;
     text-align: center;
-    
   }
   
-  h1{
-      font-style: italic;
-  }
+ 
   h2{
     color: #BB5365;
   }
 
+  a {
+    color: #ffffff;
+  }
   
 
   nav{
