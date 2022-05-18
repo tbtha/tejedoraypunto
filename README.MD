@@ -1,6 +1,6 @@
 # DEPLOY https://app-tejedora.herokuapp.com/
 
 
-# para acceder como usuario administrador 
-# email : tabatha@gmail.com
-# contraseña : 123123
+### para acceder como usuario administrador 
+#### email : tabatha@gmail.com
+#### contraseña : 123123
