@@ -187,13 +187,19 @@ const ordenCompra = async (req,res) => {
         `
 
         const correo = await enviar(usuarioParse.email,subject,html)
-        if(!correo.ok) console.log(correo.msg)
-        if(correo.ok) console.log(correo.msg)
+        if(!correo.ok){
+            return res.json({
+                ok:false,
+                msg: correo.msg
+            })
+        }
+        if(correo.ok) {
+            return res.json({
+                ok:true,
+                msg: correo.msg
+            })
+        }
        
-        return res.json({
-            ok:true,
-            msg: correo.msg
-        })
 
     } catch (error) {
         console.log(error)
