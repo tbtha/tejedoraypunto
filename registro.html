@@ -67,7 +67,7 @@
                   <form id="loginForm">
                     <div class="mb-3">
                       <label for="correo" class="form-label">Correo electrónico</label>
-                      <input type="email" class="form-control" id="correo" maxlength="100" required>
+                      <input type="text" class="form-control" id="correo" maxlength="100" required>
                       <span id="mensajeCorreo" class="text-danger small error"></span>
                     </div>
                     <div class="mb-3">
@@ -77,7 +77,7 @@
                     </div>
                     <div class="text-end">
                       <!-- <button type="submit" class="btn btn-dark">Entrar</button> -->
-                       <button type="button" class="btn btn-dark text-center" id="btnEnviar">Entrar</button><br>
+                       <button type="button" class="btn btn-dark text-center" id="btnInicioSesion">Entrar</button><br>
                       <span id="mensajeInicioSesion" class="text-danger small error"></span>
                     </div>
                   </form>
@@ -92,39 +92,48 @@
                 <h4 class="card-title mb-4 text-center">Registro</h4>
                 <form>
                   <div class="mb-3">
-                    <label for="nombreRegistro" class="form-label">Rut</label> <!-- validar si es un run correcto, sin punto ni guion, min 7 max 9-->
+                    <label for="rutRegistro" class="form-label">Rut</label> <!-- validar si es un run correcto, sin punto ni guion, min 7 max 9-->
                     <input type="text" class="form-control" id="rutRegistro" required>
+                    <span id="mensajerutRegistro" class="text-danger small error"></span>
                   </div>
                   <div class="mb-3">
                     <label for="nombreRegistro" class="form-label">Nombre</label><!--max 50 caracteres-->
                     <input type="text" class="form-control" id="nombreRegistro" required>
+                    <span id="mensajenombreRegistro" class="text-danger small error"></span>
                   </div>
                   <div class="mb-3">
-                    <label for="nombreRegistro" class="form-label">Apellidos</label><!--max 100 caracteres-->
+                    <label for="apellidosRegistro" class="form-label">Apellidos</label><!--max 100 caracteres-->
                     <input type="text" class="form-control" id="apellidosRegistro" required>
+                    <span id="mensajeapellidosRegistro" class="text-danger small error"></span>
                   </div>
                   <div class="mb-3">
                     <label for="emailRegistro" class="form-label">Correo electrónico</label><!--max 100 caracteres, Validar Solo correos con @duoc.cl, @profesor.duoc.cl y @gmail.com-->
-                    <input type="email" class="form-control" id="emailRegistro" required>
+                    <input type="text" class="form-control" id="emailRegistro" required>
+                    <span id="mensajeemailRegistro" class="text-danger small error"></span>
                   </div>
                   <div class="mb-3">
-                    <label for="passwordRegistro" class="form-label">Fecha de Nacimiento</label>  <!--modificar tipo de input-->
-                    <input type="password" class="form-control" id="passwordRegistro" required>
+                    <label for="fnacimientoRegistro" class="form-label">Fecha de Nacimiento</label>  <!--modificar tipo de input-->
+                    <input type="text" class="form-control" id="fnacimientoRegistro" required>
+                    <span id="mensajefnacimientoRegistro" class="text-danger small error"></span>
                   </div>
                   <!--  tipo de usuario, enviar siempre usuario  -->
                   <!--agregar region con box regiones que etan en un arreglo de js-->
                   <!--agregar comuna con box-->
                   
                   <div class="mb-3">
-                    <label for="passwordRegistro" class="form-label">Dirección</label><!--max 300 caracteres-->
-                    <input type="password" class="form-control" id="passwordRegistro" required>
+                    <label for="direccionRegistro" class="form-label">Dirección</label><!--max 300 caracteres-->
+                    <input type="text" class="form-control" id="direccionRegistro" required>
+                    <span id="mensajedireccionRegistro" class="text-danger small error"></span>
                   </div>
                   <div class="mb-3">
                     <label for="passwordRegistro" class="form-label">Contraseña</label>
-                    <input type="password" class="form-control" id="passwordRegistro" required>
+                    <input type="password" class="form-control" id="passwordRegistro"  minlength="4" maxlength="10" required>
+                    <span id="mensajepasswordRegistro" class="text-danger small error"></span>
                   </div>
                   <div class="text-end">
-                    <button type="submit" class="btn btn-dark">Registrarse</button>
+                    <!-- <button type="submit" class="btn btn-dark">Registrarse</button> -->
+                      <button type="button" class="btn btn-dark text-center" id="btnRegistro">Entrar</button><br>
+                      <span id="mensajeRegistro" class="text-danger small error"></span>
                   </div>
                 </form>
               </div>

@@ -57,24 +57,28 @@
                 <div class="mb-3">
                 <label for="nombre" class="form-label">Nombre</label>
                 <input type="text" class="form-control" id="nombre" placeholder="Escribe tu nombre" required>
-                </div>
+                <span id="mensajeNombreContact" class="text-danger small error"></span>
+                 </div>
 
                 <!-- Correo -->
                 <div class="mb-3">
-                <label for="correo" class="form-label">Correo electrónico</label>
-                <input type="email" class="form-control" id="correo" placeholder="ejemplo@correo.com" required>
-                <span id="mensajeCorreo" class="text-danger small error"></span>
+                <label for="correoContact" class="form-label">Correo electrónico</label>
+                <input type="email" class="form-control" id="correoContact" placeholder="ejemplo@correo.com"  required>
+                <span id="mensajeCorreoContact" class="text-danger small error"></span>
                 </div>
 
                 <!-- Comentario -->
                 <div class="mb-3">
-                <label for="comentario" class="form-label">Mensaje</label>
-                <textarea class="form-control" id="comentario" rows="5" placeholder="Escribe tu mensaje aquí..." required ></textarea>
+                <label for="comentarioContact" class="form-label">Mensaje</label>
+                <textarea class="form-control campo-expandido" id="comentarioContact" placeholder="Escribe tu mensaje aquí..." required ></textarea>
+                <span id="mensajeComentarioContact" class="text-danger small error"></span>
                 </div>
 
                 <!-- Botón -->
                 <div class="text-end">
-                <button type="submit" class="btn btn-dark px-4">Enviar</button>
+                <!-- <button type="submit" class="btn btn-dark px-4">Enviar</button> -->
+                    <button type="button" class="btn btn-dark text-center" id="btnContact">Enviar</button><br>
+                    <span id="mensajeContact" class="text-danger small error"></span>
                 </div>
             </form>
             </div>

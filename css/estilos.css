@@ -87,4 +87,10 @@ article:hover {
     }
   }
 
-  /*navbar*/
+  /*contactame*/
+.campo-expandido {
+  height: 120px;        /* Altura simulada como textarea */
+  padding: 12px;        /* Espacio interno cómodo */
+  line-height: 1.5;     /* Mejora la legibilidad */
+  vertical-align: top;  /* Alinea el texto arriba */
+}
