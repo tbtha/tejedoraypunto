@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>tbtha.</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/estilos.css">
+
+</head>
+<body class="d-flex flex-column min-vh-100"> <!--para un body flex para pegar el footer abajo-->
+    <main class="flex-grow-1"> 
+    <div class="container">
+        <!---------------------------------------------------------------------navbar------------------------------------------------------------------>
+        <nav class="navbar navbar-expand-lg navbar-custom">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="index.html">
+                <img src="img/marca/logo_transformado.jpeg" alt="" width="100%" height="auto">
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+            <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ms-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="index.html">Inicio</a>
+                </li>
+                <li class="nav-item dropdown">
+                    <li class="nav-item">
+                        <a class="nav-link" href="productos.html">Productos</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="registro.html">Iniciar sesión</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="blogs.html">Blog</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="me.html">Me</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="contact.html">Contacto</a>
+                    </li>
+                </li>
+            </ul>
+            </div>
+        </div>
+        </nav>
+        <!---------------------------------------------------------------------navbar------------------------------------------------------------------>
+
+        <!---------------------------------------------------------------------seccion ------------------------------------------------------------->
+
+  <main class="flex-grow-1">
+    <div class="container-fluid">
+
+
+      <!-- Panel Admin -->
+      <div class="row">
+        <!-- Menú lateral -->
+        <nav class="col-12 col-md-3 col-lg-2 sidebar mb-3 mb-md-0">
+          <h4 class="text-center mt-4">Admin</h4>
+          <a class="sidebar text-center" href="#" onclick="mostrarSeccion('usuarios')">Usuarios</a>
+          <a class="sidebar text-center" href="#" onclick="mostrarSeccion('productos')">Productos</a>
+        </nav>
+
+        <!-- Contenido principal -->
+        <main class="col-12 col-md-9 col-lg-10 p-4">
+          
+          <!-- Sección Usuarios -->
+          <section id="usuarios" class="content-section active">
+            <h3>Lista de Usuarios</h3>
+            <div class="table-responsive">
+                <table id="tablaUsuarios" class="table table-bordered table-hover mt-3">
+                  <thead class="table-light">
+                    <tr>
+                      <th>ID</th>
+                      <th>Nombre</th>
+                      <th>Email</th>
+                      <th>Rol</th>
+                      <!-- <th>Acciones</th> -->
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <!-- Aquí irá el tbody generado por JS -->
+                  </tbody>
+                </table>
+                  <!-- Botón para agregar usuario -->
+                  <button id="btnAgregarUsuario" class="btn btn-success mb-2">Agregar Usuario</button>
+            </div>
+          </section>
+
+          <!-- Sección Productos -->
+          <section id="productos" class="content-section">
+            <h3>Lista de Productos</h3>
+            <div class="table-responsive">
+              <table id="tablaProductos" class="table table-bordered table-hover mt-3">
+                <thead class="table-light">
+                  <tr>
+                    <th>ID</th>
+                    <th>Nombre</th>
+                    <th>Descripción</th>
+                    <th>Categoría</th>
+                    <th>Precio</th>
+                    <th>Stock</th>
+                    <th>Acciones</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <!-- tbody se inyecta aquí por JS -->
+                </tbody>
+              </table>
+                <!-- Botón para agregar producto -->
+                <button id="btnAgregarProducto" class="btn btn-success mb-2">Agregar Producto</button>
+          <!-- Botón para volver al panel principal -->
+          <div class="text-end mt-4">
+            <a href="index.html" class="btn btn-secondary">Volver al Panel Principal</a>
+          </div>
+            </div>
+          </section>
+
+        </main>
+      </div>    
+
+      
+      
+      
+      
+      <!---------------------------------------------------------------------seccion-------------------------------------------------------------------->
+    </div>
+  </main>
+        
+        <!---------------------------------------------------------------------footer------------------------------------------------------------------>
+        <!--https://icons8.com/icons/set/instagram-y-facebook-->
+        <footer class="pt-4 border-bottom-dark mt-5">
+            <div class="container">
+                <hr class="my-4"> 
+                <div class="row">
+                    <div class="col text-center">
+                        <div class="col mt-3 text-center">
+                            <a href="https://www.instagram.com/tejedoraypunto/"><img src="img/otros/icons8-instagram-30.png" alt=""></a>
+                            <a href="https://www.facebook.com/share/173dn2Z2mc/?mibextid=wwXIfr" ><img src="img/otros/icons8-facebook-30.png" alt=""></a>
+                        </div>
+                        <p class="mt-3 mb-0">© 2020 | by <a href="https://tbtha.github.io/tbtha">tbtha.</a></p>
+                    </div>
+                </div>
+                <hr class="my-4"> 
+            </div>
+        </footer>
+        <!---------------------------------------------------------------------footer------------------------------------------------------------------>
+                <!-- Script para alternar secciones -->
+  <script src="js/admi.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+</html>
