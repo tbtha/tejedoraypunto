@@ -168,7 +168,7 @@ const productos = [
 
 // Array de usuarios para la tabla de usuarios
 const usuarios = [
-  { id: '001', nombre: "Tabatha", email: "tabatha19@email.com", rol: "Administrador" },
+  { id: '001', nombre: "Tabatha", email: "tejedoraypunto@gmail.com", rol: "Administrador" },
   { id: '002', nombre: "Lucía", email: "lucia@email.com", rol: "Cliente" }
 ];
 

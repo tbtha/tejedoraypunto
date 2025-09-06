@@ -10,32 +10,60 @@ function mostrarFormulario(tipo) {
     }
 }
 // // // Validaciones
+// function validarCorreo(inputCorreo, mensajeCorreo) {
+//     const dominiosPermitidos = ["@duoc.cl", "@profesor.duoc.cl", "@gmail.com"];
+//     const regexEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+//     const email = inputCorreo.value.trim();
+//     if (email === "") {
+//         mensajeCorreo.textContent = "El correo no puede estar vacío.";
+//         mensajeCorreo.className = "text-danger small error";
+//         return false;
+//     } else if (email.length > 100) {
+//         mensajeCorreo.textContent = "El correo no puede tener más de 100 caracteres.";
+//         mensajeCorreo.className = "text-danger small error";
+//         return false;
+//     } else if (!regexEmail.test(email)) {
+//         mensajeCorreo.textContent = "Formato de correo inválido.";
+//         mensajeCorreo.className = "text-danger small error";
+//         return false;
+//     } else if (!dominiosPermitidos.some(d => email.endsWith(d))) {
+//         mensajeCorreo.textContent = "Solo se permiten correos @duoc.cl, @profesor.duoc.cl o @gmail.com.";
+//         mensajeCorreo.className = "text-danger small error";
+//         return false;
+//     } else {
+//         mensajeCorreo.textContent = "Correo válido ✔️";
+//         mensajeCorreo.className = "small text-success";
+//         return true;
+//     }
+// }
 function validarCorreo(inputCorreo, mensajeCorreo) {
-    const dominiosPermitidos = ["@duoc.cl", "@profesor.duoc.cl", "@gmail.com"];
-    const regexEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    const email = inputCorreo.value.trim();
-    if (email === "") {
-        mensajeCorreo.textContent = "El correo no puede estar vacío.";
-        mensajeCorreo.className = "text-danger small error";
-        return false;
-    } else if (email.length > 100) {
-        mensajeCorreo.textContent = "El correo no puede tener más de 100 caracteres.";
-        mensajeCorreo.className = "text-danger small error";
-        return false;
-    } else if (!regexEmail.test(email)) {
-        mensajeCorreo.textContent = "Formato de correo inválido.";
-        mensajeCorreo.className = "text-danger small error";
-        return false;
-    } else if (!dominiosPermitidos.some(d => email.endsWith(d))) {
-        mensajeCorreo.textContent = "Solo se permiten correos @duoc.cl, @profesor.duoc.cl o @gmail.com.";
-        mensajeCorreo.className = "text-danger small error";
-        return false;
-    } else {
-        mensajeCorreo.textContent = "Correo válido ✔️";
-        mensajeCorreo.className = "small text-success";
-        return true;
-    }
+  const dominiosPermitidos = ["@duoc.cl", "@profesor.duoc.cl", "@gmail.com"];
+  const regexEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  const email = inputCorreo.value.trim();
+
+  if (email === "") {
+    mensajeCorreo.textContent = "El correo no puede estar vacío.";
+    mensajeCorreo.className = "text-danger small error";
+    return false;
+  } else if (email.length > 100) {
+    mensajeCorreo.textContent = "El correo no puede tener más de 100 caracteres.";
+    mensajeCorreo.className = "text-danger small error";
+    return false;
+  } else if (!regexEmail.test(email)) {
+    mensajeCorreo.textContent = "Formato de correo inválido.";
+    mensajeCorreo.className = "text-danger small error";
+    return false;
+  } else if (!dominiosPermitidos.some(d => email.endsWith(d))) {
+    mensajeCorreo.textContent = "Solo se permiten correos @duoc.cl, @profesor.duoc.cl o @gmail.com.";
+    mensajeCorreo.className = "text-danger small error";
+    return false;
+  } else {
+    mensajeCorreo.textContent = "Correo válido ✔️";
+    mensajeCorreo.className = "small text-success";
+    return [true, email];
+  }
 }
+// //
 function validarPassword(inputPassword, mensajePassword) {
     const password = inputPassword.value.trim();
     if (password === "") {
@@ -52,6 +80,7 @@ function validarPassword(inputPassword, mensajePassword) {
         return true;
     }
 }
+// //
 function validarRut(inputRut, mensajeRut) {
   const rut = inputRut.value.trim().toUpperCase();
   console.log(rut);
@@ -69,7 +98,7 @@ function validarRut(inputRut, mensajeRut) {
     mensajeRut.className = "text-danger small error";
     return false;
   }
-
+// //
   // Validación del dígito verificador
   const cuerpo = rut.slice(0, -1);
   const dvIngresado = rut.slice(-1);
@@ -104,6 +133,7 @@ function validarRut(inputRut, mensajeRut) {
   mensajeRut.className = "small text-success";
   return true;
 }
+// //
 function validarNombre(inputNombre, mensajeNombre) {
     const nombre = inputNombre.value.trim();
     if (nombre === "") {
@@ -120,6 +150,7 @@ function validarNombre(inputNombre, mensajeNombre) {
         return true;
     }
 }
+// //
 function validarApellido(inputApellido, mensajeApellido) {
     const apellido = inputApellido.value.trim();
     if (apellido === "") {
@@ -251,18 +282,26 @@ window.onload = function () {
     inputPassword.addEventListener("input", () => validarPassword(inputPassword, mensajePassword));
 
     btnInicioSesion.addEventListener("click", function () {
-        const correoValido = validarCorreo(inputCorreo, mensajeCorreo);
+        const [correoValido, email]  = validarCorreo(inputCorreo, mensajeCorreo);
         const passwordValido = validarPassword(inputPassword, mensajePassword);
 
-        if (correoValido && passwordValido) {
-        mensajeFinal.textContent = "Inicio de sesión exitoso.";
-        mensajeFinal.className = "small text-success";
-        } else {
-        mensajeFinal.textContent = "Por favor, valida los campos correctamente.";
-        mensajeFinal.className = "text-danger small error";
-        }
-    });
+    if (correoValido && passwordValido) {
+      let mensaje = "Inicio de sesión exitoso.";
+
+      if (email === "tejedoraypunto@gmail.com") {
+        mensaje += ` | <a href="administracion.html" class="text-primary text-decoration-underline" target="_blank">Acceso especial</a>`;
+      }
+
+      mensajeFinal.innerHTML = mensaje;
+      mensajeFinal.className = "small text-success";
+    } else {
+      mensajeFinal.textContent = "Por favor, valida los campos correctamente.";
+      mensajeFinal.className = "text-danger small error";
+    }
+  });
+
 // // //
+
 // // // Validación de registrarse
     const btnRegistro = document.getElementById("btnRegistro");
     // Validación de correo electrónico
