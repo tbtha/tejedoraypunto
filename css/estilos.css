@@ -94,3 +94,9 @@ article:hover {
   line-height: 1.5;     /* Mejora la legibilidad */
   vertical-align: top;  /* Alinea el texto arriba */
 }
+
+.input-corto {
+  width: 80px;
+  padding: 4px 8px;
+  text-align: center;
+}

@@ -94,36 +94,40 @@
                   <div class="mb-3">
                     <label for="rutRegistro" class="form-label">Rut</label> <!-- validar si es un run correcto, sin punto ni guion, min 7 max 9-->
                     <input type="text" class="form-control" id="rutRegistro" required>
-                    <span id="mensajerutRegistro" class="text-danger small error"></span>
+                    <span id="mensajeRutRegistro" class="text-danger small error"></span>
                   </div>
                   <div class="mb-3">
                     <label for="nombreRegistro" class="form-label">Nombre</label><!--max 50 caracteres-->
                     <input type="text" class="form-control" id="nombreRegistro" required>
-                    <span id="mensajenombreRegistro" class="text-danger small error"></span>
+                    <span id="mensajeNombreRegistro" class="text-danger small error"></span>
                   </div>
                   <div class="mb-3">
                     <label for="apellidosRegistro" class="form-label">Apellidos</label><!--max 100 caracteres-->
                     <input type="text" class="form-control" id="apellidosRegistro" required>
-                    <span id="mensajeapellidosRegistro" class="text-danger small error"></span>
+                    <span id="mensajeApellidosRegistro" class="text-danger small error"></span>
                   </div>
                   <div class="mb-3">
                     <label for="emailRegistro" class="form-label">Correo electrónico</label><!--max 100 caracteres, Validar Solo correos con @duoc.cl, @profesor.duoc.cl y @gmail.com-->
                     <input type="text" class="form-control" id="emailRegistro" required>
                     <span id="mensajeemailRegistro" class="text-danger small error"></span>
                   </div>
-                  <div class="mb-3">
-                    <label for="fnacimientoRegistro" class="form-label">Fecha de Nacimiento</label>  <!--modificar tipo de input-->
-                    <input type="text" class="form-control" id="fnacimientoRegistro" required>
-                    <span id="mensajefnacimientoRegistro" class="text-danger small error"></span>
-                  </div>
                   <!--  tipo de usuario, enviar siempre usuario  -->
-                  <!--agregar region con box regiones que etan en un arreglo de js-->
-                  <!--agregar comuna con box-->
-                  
+                  <div class="mb-3">
+                    <label for="regionRegistro" class="form-label">Región</label>
+                    <select id="regionSelect" class="form-select">
+                      <option value="">Selecciona una región</option>
+                    </select>
+                  </div>
+                  <div class="mb-3">
+                    <label for="comunaRegistro" class="form-label">Comuna</label>
+                    <select id="comunaSelect" class="form-select mt-2">
+                      <option value="">Selecciona una comuna</option>
+                    </select>
+                  </div>
                   <div class="mb-3">
                     <label for="direccionRegistro" class="form-label">Dirección</label><!--max 300 caracteres-->
                     <input type="text" class="form-control" id="direccionRegistro" required>
-                    <span id="mensajedireccionRegistro" class="text-danger small error"></span>
+                    <span id="mensajeDireccionRegistro" class="text-danger small error"></span>
                   </div>
                   <div class="mb-3">
                     <label for="passwordRegistro" class="form-label">Contraseña</label>

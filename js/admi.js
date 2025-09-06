@@ -14,7 +14,7 @@ function mostrarSeccion(id) {
 // Array de productos para la tabla de productos
 const productos = [
   {
-    id: 1,
+    id: '001',
     temporada: "winter",
     imagen: "img/winter/chaleco1.jpeg",
     imagenes: [
@@ -29,7 +29,7 @@ const productos = [
     stock: 1
   },
   {
-    id: 2,
+    id: '002',
     temporada: "winter",
     imagen: "img/winter/chaleco2.jpeg",
     imagenes: [
@@ -44,7 +44,7 @@ const productos = [
     stock: 2
   },
   {
-    id: 3,
+    id: '003',
     temporada: "winter",
     imagen: "img/winter/chaleco3.jpeg",
     imagenes: [
@@ -59,7 +59,7 @@ const productos = [
     stock: 1
   },
   {
-    id: 4,
+    id: '004',
     temporada: "winter",
     imagen: "img/winter/chaleco4.jpeg",
     imagenes: [
@@ -74,7 +74,7 @@ const productos = [
     stock: 2
   },
   {
-    id: 5,
+    id: '005',
     temporada: "summer",
     imagen: "img/summer/summer1_1.jpeg",
     imagenes: [
@@ -89,7 +89,7 @@ const productos = [
     stock: 3
   },
   {
-    id: 6,
+    id: '006',
     temporada: "summer",
     imagen: "img/summer/summer2.jpeg",
     imagenes: [
@@ -104,7 +104,7 @@ const productos = [
     stock: 2
   },
   {
-    id: 7,
+    id: '007',
     temporada: "summer",
     imagen: "img/summer/summer3_3.jpeg",
     imagenes: [
@@ -119,7 +119,7 @@ const productos = [
     stock: 1
   },
   {
-    id: 8,
+    id: '008',
     temporada: "summer",
     imagen: "img/summer/summer4.jpeg",
     imagenes: [
@@ -134,7 +134,7 @@ const productos = [
     stock: 2
   },
   {
-    id: 9,
+    id: '009',
     temporada: "summer",
     imagen: "img/summer/summer5.jpeg",
     imagenes: [
@@ -149,7 +149,7 @@ const productos = [
     stock: 3
   },
   {
-    id: 10,
+    id: '010',
     temporada: "summer",
     imagen: "img/summer/summer6.jpeg",
     imagenes: [
@@ -168,8 +168,8 @@ const productos = [
 
 // Array de usuarios para la tabla de usuarios
 const usuarios = [
-  { id: 1, nombre: "Tabatha", email: "tabatha19@email.com", rol: "Administrador" },
-  { id: 2, nombre: "Lucía", email: "lucia@email.com", rol: "Cliente" }
+  { id: '001', nombre: "Tabatha", email: "tabatha19@email.com", rol: "Administrador" },
+  { id: '002', nombre: "Lucía", email: "lucia@email.com", rol: "Cliente" }
 ];
 
 
@@ -231,9 +231,13 @@ function generarTbodyProductos(productos) {
   var tbody = document.createElement('tbody');
   productos.forEach(function(producto) {
     var tr = document.createElement('tr');
-    // ID (no editable)
+    // ID (editable)
     var tdId = document.createElement('td');
-    tdId.textContent = producto.id;
+    var inputId = document.createElement('input');
+    inputId.type = 'text';
+    inputId.className ='input-corto';
+    inputId.value = producto.id;
+    tdId.appendChild(inputId);
     tr.appendChild(tdId);
     // Nombre (editable)
     var tdNombre = document.createElement('td');
@@ -260,6 +264,7 @@ function generarTbodyProductos(productos) {
     var tdPrecio = document.createElement('td');
     var inputPrecio = document.createElement('input');
     inputPrecio.type = 'text';
+    inputPrecio.className ='input-corto';
     inputPrecio.value = producto.precio;
     tdPrecio.appendChild(inputPrecio);
     tr.appendChild(tdPrecio);
@@ -267,6 +272,7 @@ function generarTbodyProductos(productos) {
     var tdStock = document.createElement('td');
     var inputStock = document.createElement('input');
     inputStock.type = 'number';
+    inputStock.className ='input-corto';
     inputStock.value = producto.stock;
     tdStock.appendChild(inputStock);
     tr.appendChild(tdStock);
@@ -276,6 +282,7 @@ function generarTbodyProductos(productos) {
     btnGuardar.textContent = 'Guardar';
     btnGuardar.onclick = function() {
       // Actualiza el array con los nuevos valores
+      producto.id = inputId.value;
       producto.titulo = inputNombre.value;
       producto.descripcion = inputDesc.value;
       producto.temporada = inputCat.value;
@@ -333,9 +340,7 @@ window.addEventListener('DOMContentLoaded', function() {
   var btnAgregarProducto = document.getElementById('btnAgregarProducto');
   if (btnAgregarProducto) {
     btnAgregarProducto.addEventListener('click', function() {
-      // Crea un nuevo producto con id correlativo y campos vacíos
-      var nuevoId = productos.length > 0 ? productos[productos.length-1].id + 1 : 1;
-      productos.push({ id: nuevoId, titulo: '', descripcion: '', precio: '', stock: 0, temporada: '' });
+      productos.push({ id: '', titulo: '', descripcion: '', precio: '', stock: 0, temporada: '' });
       renderizarProductos();
     });
   }
