@@ -2,8 +2,6 @@
 
 **Autora:** Tabatha ([@tbtha](https://github.com/tbtha))  
 **Proyecto:** Plataforma web artesanal con narrativa editorial y lógica funcional clara.
-**Logo del proyecto:**   
-`![Logo Tejedora y Punto](img/marca/logo_transformado.jpeg)`
 ---
 
 ## 🌐 Contexto del desarrollo
