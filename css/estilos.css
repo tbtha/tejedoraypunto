@@ -98,5 +98,10 @@ article:hover {
 .input-corto {
   width: 80px;
   padding: 4px 8px;
-  text-align: center;
+  text-align: left;
+}
+.input-mediano {
+  width: 120px;
+  padding: 4px 8px;
+  text-align: left;
 }

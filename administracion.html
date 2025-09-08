@@ -58,15 +58,15 @@
       <!-- Panel Admin -->
       <div class="row">
         <!-- Menú lateral -->
-        <nav class="col-12 col-md-3 col-lg-2 sidebar mb-3 mb-md-0">
+        <nav class="container my-4">
           <h4 class="text-center mt-4">Admin</h4>
           <a class="sidebar text-center" href="#" onclick="mostrarSeccion('usuarios')">Usuarios</a>
           <a class="sidebar text-center" href="#" onclick="mostrarSeccion('productos')">Productos</a>
         </nav>
 
         <!-- Contenido principal -->
-        <main class="col-12 col-md-9 col-lg-10 p-4">
-          
+        <!-- <main class="col-12 col-md-8 col-lg-10 p-4"> -->
+        <main class="container p-4">
           <!-- Sección Usuarios -->
           <section id="usuarios" class="content-section active">
             <h3>Lista de Usuarios</h3>
@@ -75,10 +75,16 @@
                   <thead class="table-light">
                     <tr>
                       <th>ID</th>
+                      <th>RUT</th>
                       <th>Nombre</th>
+                      <th>Apellidos</th>
                       <th>Email</th>
+                      <th>Región</th>
+                      <th>Comuna</th>
+                      <th>Dirección</th>
                       <th>Rol</th>
-                      <!-- <th>Acciones</th> -->
+                      <th>Estado</th>
+                      <th>Acciones</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -103,6 +109,7 @@
                     <th>Categoría</th>
                     <th>Precio</th>
                     <th>Stock</th>
+                    <th>Estado</th>
                     <th>Acciones</th>
                   </tr>
                 </thead>
@@ -112,19 +119,14 @@
               </table>
                 <!-- Botón para agregar producto -->
                 <button id="btnAgregarProducto" class="btn btn-success mb-2">Agregar Producto</button>
-          <!-- Botón para volver al panel principal -->
-          <div class="text-end mt-4">
-            <a href="index.html" class="btn btn-secondary">Volver al Panel Principal</a>
-          </div>
-            </div>
-          </section>
-
+              </div>
+            </section>
+            <!-- Botón para volver al panel principal -->
+      <div class="text-end mt-4">
+        <a href="index.html" class="btn btn-secondary">Volver al Panel Principal</a>
+      </div>
         </main>
-      </div>    
-
-      
-      
-      
+      </div>
       
       <!---------------------------------------------------------------------seccion-------------------------------------------------------------------->
     </div>
@@ -148,8 +150,9 @@
             </div>
         </footer>
         <!---------------------------------------------------------------------footer------------------------------------------------------------------>
-                <!-- Script para alternar secciones -->
-  <script src="js/admi.js"></script>
+    <script src="js/usuario.js"></script> 
+    <script src="js/productos.js"></script>  
+    <script src="js/admi.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
 </body>

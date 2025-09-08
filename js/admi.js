@@ -1,3 +1,7 @@
+// Array de productos para la tabla de productos
+window.productos = productos;
+// Array de usuarios para la tabla de usuarios
+window.usuarios = usuarios; 
 
 // Cambia la sección visible según el botón presionado
 function mostrarSeccion(id) {
@@ -8,169 +12,8 @@ function mostrarSeccion(id) {
   });
   // Muestra la sección seleccionada
   document.getElementById(id).classList.add('active');
-}
+};
 
-
-// Array de productos para la tabla de productos
-const productos = [
-  {
-    id: '001',
-    temporada: "winter",
-    imagen: "img/winter/chaleco1.jpeg",
-    imagenes: [
-      "img/winter/chaleco1.jpeg",
-      "img/winter/chaleco1.jpeg",
-      "img/winter/chaleco1.jpeg"
-    ],
-    titulo: "Chaleco Bosque",
-    descripcion: "Inspirado en texturas naturales y tonos tierra.",
-    enlace: "#",
-    precio: "$55.000",
-    stock: 1
-  },
-  {
-    id: '002',
-    temporada: "winter",
-    imagen: "img/winter/chaleco2.jpeg",
-    imagenes: [
-      "img/winter/chaleco2.jpeg",
-      "img/winter/chaleco1.jpeg",
-      "img/winter/chaleco1.jpeg"
-    ],
-    titulo: "Chaleco Cobre",
-    descripcion: "Diseño clásico con detalles artesanales.",
-    enlace: "#",
-    precio: "$58.000",
-    stock: 2
-  },
-  {
-    id: '003',
-    temporada: "winter",
-    imagen: "img/winter/chaleco3.jpeg",
-    imagenes: [
-      "img/winter/chaleco3.jpeg",
-      "img/winter/chaleco1.jpeg",
-      "img/winter/chaleco1.jpeg"
-    ],
-    titulo: "Chaleco Invierno",
-    descripcion: "Abrigo ligero con punto cerrado.",
-    enlace: "#",
-    precio: "$62.000",
-    stock: 1
-  },
-  {
-    id: '004',
-    temporada: "winter",
-    imagen: "img/winter/chaleco4.jpeg",
-    imagenes: [
-      "img/winter/chaleco4.jpeg",
-      "img/winter/chaleco1.jpeg",
-      "img/winter/chaleco1.jpeg"
-    ],
-    titulo: "Chaleco Niebla",
-    descripcion: "Tejido grueso, ideal para días fríos.",
-    enlace: "#",
-    precio: "$60.000",
-    stock: 2
-  },
-  {
-    id: '005',
-    temporada: "summer",
-    imagen: "img/summer/summer1_1.jpeg",
-    imagenes: [
-      "img/summer/summer1_1.jpeg",
-      "img/winter/chaleco1.jpeg",
-      "img/winter/chaleco1.jpeg"
-    ],
-    titulo: "Top Lino",
-    descripcion: "Fresco y tejido a mano con hilo natural.",
-    enlace: "#",
-    precio: "$28.000",
-    stock: 3
-  },
-  {
-    id: '006',
-    temporada: "summer",
-    imagen: "img/summer/summer2.jpeg",
-    imagenes: [
-      "img/winter/chaleco1.jpeg",
-      "img/summer/summer2.jpeg",
-      "img/winter/chaleco1.jpeg"
-    ],
-    titulo: "Bolero Sol",
-    descripcion: "Ideal para tardes cálidas y looks bohemios.",
-    enlace: "#",
-    precio: "$27.000",
-    stock: 2
-  },
-  {
-    id: '007',
-    temporada: "summer",
-    imagen: "img/summer/summer3_3.jpeg",
-    imagenes: [
-      "img/winter/chaleco1.jpeg",
-      "img/winter/chaleco1.jpeg",
-      "img/winter/chaleco1.jpeg"
-    ],
-    titulo: "Crop Mandala",
-    descripcion: "Diseño circular inspirado en patrones ancestrales.",
-    enlace: "#",
-    precio: "$25.000",
-    stock: 1
-  },
-  {
-    id: '008',
-    temporada: "summer",
-    imagen: "img/summer/summer4.jpeg",
-    imagenes: [
-      "img/summer/summer4.jpeg",
-      "img/winter/chaleco1.jpeg",
-      "img/winter/chaleco1.jpeg"
-    ],
-    titulo: "Vestido Arena",
-    descripcion: "Ligero, con caída suave y textura artesanal.",
-    enlace: "#",
-    precio: "$30.000",
-    stock: 2
-  },
-  {
-    id: '009',
-    temporada: "summer",
-    imagen: "img/summer/summer5.jpeg",
-    imagenes: [
-      "img/summer/summer5.jpeg",
-      "img/winter/chaleco1.jpeg",
-      "img/winter/chaleco1.jpeg"
-    ],
-    titulo: "Top Coral",
-    descripcion: "Color vibrante y tejido en punto calado.",
-    enlace: "#",
-    precio: "$26.000",
-    stock: 3
-  },
-  {
-    id: '010',
-    temporada: "summer",
-    imagen: "img/summer/summer6.jpeg",
-    imagenes: [
-      "img/summer/summer6.jpeg",
-      "img/winter/chaleco1.jpeg",
-      "img/winter/chaleco1.jpeg"
-    ],
-    titulo: "Kimono Brisa",
-    descripcion: "Perfecto para capas ligeras y estilo relajado.",
-    enlace: "#",
-    precio: "$29.000",
-    stock: 2
-  }
-];
-
-
-// Array de usuarios para la tabla de usuarios
-const usuarios = [
-  { id: '001', nombre: "Tabatha", email: "tejedoraypunto@gmail.com", rol: "Administrador" },
-  { id: '002', nombre: "Lucía", email: "lucia@email.com", rol: "Cliente" }
-];
 
 
 
@@ -179,45 +22,117 @@ function generarTbody(usuarios) {
   var tbody = document.createElement('tbody');
   usuarios.forEach(function(usuario, idx) {
     var tr = document.createElement('tr');
-    // ID (no editable)
+
+    // ID
     var tdId = document.createElement('td');
-    tdId.textContent = usuario.id;
+    var inputId = document.createElement('input');
+    inputId.type = 'text';
+    inputId.className = 'input-corto';
+    inputId.value = usuario.id;
+    tdId.appendChild(inputId);
     tr.appendChild(tdId);
-    // Nombre (editable)
+
+    // RUT
+    var tdRut = document.createElement('td');
+    var inputRut = document.createElement('input');
+    inputRut.type = 'text';
+    inputRut.value = usuario.rut || '';
+    inputRut.className ='input-mediano';
+    tdRut.appendChild(inputRut);
+    tr.appendChild(tdRut);
+
+    // Nombre
     var tdNombre = document.createElement('td');
     var inputNombre = document.createElement('input');
     inputNombre.type = 'text';
     inputNombre.value = usuario.nombre;
+    inputNombre.className ='input-corto';
     tdNombre.appendChild(inputNombre);
     tr.appendChild(tdNombre);
-    // Email (editable)
+
+    // Apellidos
+    var tdApellidos = document.createElement('td');
+    var inputApellidos = document.createElement('input');
+    inputApellidos.type = 'text';
+    inputApellidos.value = usuario.apellidos || '';
+    tdApellidos.appendChild(inputApellidos);
+    tr.appendChild(tdApellidos);
+
+    // Email
     var tdEmail = document.createElement('td');
     var inputEmail = document.createElement('input');
     inputEmail.type = 'email';
     inputEmail.value = usuario.email;
     tdEmail.appendChild(inputEmail);
     tr.appendChild(tdEmail);
-    // Rol (editable)
+
+    // Región
+    var tdRegion = document.createElement('td');
+    var inputRegion = document.createElement('input');
+    inputRegion.type = 'text';
+    inputRegion.value = usuario.region || '';
+    tdRegion.appendChild(inputRegion);
+    tr.appendChild(tdRegion);
+
+    // Comuna
+    var tdComuna = document.createElement('td');
+    var inputComuna = document.createElement('input');
+    inputComuna.type = 'text';
+    inputComuna.value = usuario.comuna || '';
+    inputComuna.className ='input-mediano';
+    tdComuna.appendChild(inputComuna);
+    tr.appendChild(tdComuna);
+
+    // Dirección
+    var tdDireccion = document.createElement('td');
+    var inputDireccion = document.createElement('input');
+    inputDireccion.type = 'text';
+    inputDireccion.value = usuario.direccion || '';
+    tdDireccion.appendChild(inputDireccion);
+    tr.appendChild(tdDireccion);
+
+    // Rol
     var tdRol = document.createElement('td');
     var inputRol = document.createElement('input');
     inputRol.type = 'text';
     inputRol.value = usuario.rol;
+    inputRol.className ='input-mediano';
     tdRol.appendChild(inputRol);
     tr.appendChild(tdRol);
-    // Columna Acciones con botón Guardar
+
+    // Estado
+    var tdEstado = document.createElement('td');
+    var inputEstado = document.createElement('input');
+    inputEstado.type = 'text';
+    inputEstado.className = 'input-corto';
+    inputEstado.value = usuario.estado || 'activo';
+    tdEstado.appendChild(inputEstado);
+    tr.appendChild(tdEstado);
+
+    // Acciones
     var tdAccion = document.createElement('td');
     var btnGuardar = document.createElement('button');
     btnGuardar.textContent = 'Guardar';
-    btnGuardar.onclick = function() {
-      // Actualiza el array con los nuevos valores
+    btnGuardar.onclick = function () {
+      usuario.id = inputId.value;
+      usuario.rut = inputRut.value;
       usuario.nombre = inputNombre.value;
+      usuario.apellidos = inputApellidos.value;
       usuario.email = inputEmail.value;
+      usuario.region = inputRegion.value;
+      usuario.comuna = inputComuna.value;
+      usuario.direccion = inputDireccion.value;
       usuario.rol = inputRol.value;
+      usuario.estado = inputEstado.value;
+
       btnGuardar.textContent = 'Guardado!';
-      setTimeout(function(){ btnGuardar.textContent = 'Guardar'; }, 1000);
+      setTimeout(function () {
+        btnGuardar.textContent = 'Guardar';
+      }, 1000);
     };
     tdAccion.appendChild(btnGuardar);
     tr.appendChild(tdAccion);
+
     tbody.appendChild(tr);
   });
   return tbody;
@@ -258,6 +173,7 @@ function generarTbodyProductos(productos) {
     var inputCat = document.createElement('input');
     inputCat.type = 'text';
     inputCat.value = producto.temporada;
+    inputCat.className ='input-corto';
     tdCat.appendChild(inputCat);
     tr.appendChild(tdCat);
     // Precio (editable)
@@ -276,6 +192,14 @@ function generarTbodyProductos(productos) {
     inputStock.value = producto.stock;
     tdStock.appendChild(inputStock);
     tr.appendChild(tdStock);
+    // Estado (editable)
+    var tdEstado = document.createElement('td');
+    var inputEstado = document.createElement('input');
+    inputEstado.type = 'text';
+    inputEstado.className ='input-corto';
+    inputEstado.value = producto.estado || "activo";
+    tdEstado.appendChild(inputEstado);
+    tr.appendChild(tdEstado);
     // Columna Acciones con botón Guardar
     var tdAccion = document.createElement('td');
     var btnGuardar = document.createElement('button');
@@ -288,6 +212,7 @@ function generarTbodyProductos(productos) {
       producto.temporada = inputCat.value;
       producto.precio = inputPrecio.value;
       producto.stock = parseInt(inputStock.value) || 0;
+      producto.estado = inputEstado.value;
       btnGuardar.textContent = 'Guardado!';
       setTimeout(function(){ btnGuardar.textContent = 'Guardar'; }, 1000);
     };
@@ -329,9 +254,7 @@ window.addEventListener('DOMContentLoaded', function() {
   var btnAgregarUsuario = document.getElementById('btnAgregarUsuario');
   if (btnAgregarUsuario) {
     btnAgregarUsuario.addEventListener('click', function() {
-      // Crea un nuevo usuario con id correlativo y campos vacíos
-      var nuevoId = usuarios.length > 0 ? usuarios[usuarios.length-1].id + 1 : 1;
-      usuarios.push({ id: nuevoId, nombre: '', email: '', rol: '' });
+      usuarios.push({ id: '', nombre: '', email: '', rol: '' });
       renderizarUsuarios();
     });
   }

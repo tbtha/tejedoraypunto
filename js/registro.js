@@ -9,33 +9,7 @@ function mostrarFormulario(tipo) {
         login.classList.add('d-none');
     }
 }
-// // // Validaciones
-// function validarCorreo(inputCorreo, mensajeCorreo) {
-//     const dominiosPermitidos = ["@duoc.cl", "@profesor.duoc.cl", "@gmail.com"];
-//     const regexEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-//     const email = inputCorreo.value.trim();
-//     if (email === "") {
-//         mensajeCorreo.textContent = "El correo no puede estar vacío.";
-//         mensajeCorreo.className = "text-danger small error";
-//         return false;
-//     } else if (email.length > 100) {
-//         mensajeCorreo.textContent = "El correo no puede tener más de 100 caracteres.";
-//         mensajeCorreo.className = "text-danger small error";
-//         return false;
-//     } else if (!regexEmail.test(email)) {
-//         mensajeCorreo.textContent = "Formato de correo inválido.";
-//         mensajeCorreo.className = "text-danger small error";
-//         return false;
-//     } else if (!dominiosPermitidos.some(d => email.endsWith(d))) {
-//         mensajeCorreo.textContent = "Solo se permiten correos @duoc.cl, @profesor.duoc.cl o @gmail.com.";
-//         mensajeCorreo.className = "text-danger small error";
-//         return false;
-//     } else {
-//         mensajeCorreo.textContent = "Correo válido ✔️";
-//         mensajeCorreo.className = "small text-success";
-//         return true;
-//     }
-// }
+
 function validarCorreo(inputCorreo, mensajeCorreo) {
   const dominiosPermitidos = ["@duoc.cl", "@profesor.duoc.cl", "@gmail.com"];
   const regexEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -277,6 +251,7 @@ window.onload = function () {
     const mensajePassword = document.getElementById("mensajepassword");
     // Mensaje final
     const mensajeFinal = document.getElementById("mensajeInicioSesion");
+    const mensajeNavbarSesion = document.getElementById("mensajeNavbarSesion");
 
     inputCorreo.addEventListener("input", () => validarCorreo(inputCorreo, mensajeCorreo));
     inputPassword.addEventListener("input", () => validarPassword(inputPassword, mensajePassword));
@@ -288,10 +263,15 @@ window.onload = function () {
     if (correoValido && passwordValido) {
       let mensaje = "Inicio de sesión exitoso.";
 
-      if (email === "tejedoraypunto@gmail.com") {
-        mensaje += ` | <a href="administracion.html" class="text-primary text-decoration-underline" target="_blank">Acceso especial</a>`;
-      }
+      const usuarioAdmin = window.usuarios.find(u => u.email === email && u.rol === "Administrador");
 
+      if (usuarioAdmin) {
+        mensaje += ` | <a href="administracion.html" class="text-primary text-decoration-underline">Acceso especial</a>`;
+        mensajeNavbarSesion.innerHTML = `Sesión iniciada como <strong>${usuarioAdmin.nombre}</strong> (Administrador) | <a href="administracion.html" class="text-primary text-decoration-underline">Ir a Administración</a>`;
+      }
+      else {
+        mensajeNavbarSesion.innerHTML = ``;
+      }
       mensajeFinal.innerHTML = mensaje;
       mensajeFinal.className = "small text-success";
     } else {
