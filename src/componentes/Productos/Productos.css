@@ -1,0 +1,14 @@
+
+.mi-tabla{
+    margin-top: 50px;
+}
+
+.enlaceEdit{
+    color:darkblue;
+    text-decoration: none;
+}
+
+.enlaceDel{
+    color:red;
+    text-decoration: none;
+}
