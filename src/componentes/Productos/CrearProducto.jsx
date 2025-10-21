@@ -4,7 +4,7 @@ import { Navbar } from "../Navbar/Navbar";
 import { Footer } from "../Footer/Footer";
 import './CrearProducto.css';
 
-const API_BASE_URL = 'http://localhost:8080/api';
+const API_BASE_URL = 'http://localhost:8082/api';
 
 export function CrearProducto() {
   
@@ -124,7 +124,7 @@ return (
                     onChange={handleChange}
                     disabled={loading}
                     maxLength={100}
-                    placeholder="Ej: Sopaipillas con pebre"
+                    placeholder="Chaleco de lana, Bufanda tejida, etc."
                     required
                   />
                 </div>

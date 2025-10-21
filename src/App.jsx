@@ -1,8 +1,9 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { Home } from './pages/Home/Home';
 import { Contacto } from './pages/Contacto/Contacto';
-import { Inventario } from './pages/Inventario/inventario';
+import { Inventario } from './pages/Inventario/Inventario';
 import { CrearProducto } from './componentes/Productos/CrearProducto';
+import { CrearCategoria } from './componentes/Productos/CrearCategoria';
 import { EditarProd } from './componentes/Productos/EditarProd';
 import './App.css'  
 import { Productos } from './pages/Productos/Productos';
@@ -24,6 +25,7 @@ function App() {
           <Route path="/inventario" element={<Inventario />} />
           <Route path="/productos" element={<Productos />} />
           <Route path="/crear-producto" element={<CrearProducto />} /> 
+          <Route path="/crear-categoria" element={<CrearCategoria />} /> 
           <Route path="/editar-producto/:id" element={<EditarProd />} />
        </Routes>
     </Router>

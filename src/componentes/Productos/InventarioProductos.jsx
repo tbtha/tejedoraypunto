@@ -8,7 +8,7 @@ export function InventarioProductos() {
  
     const cargarProductos = async () => {
         try {
-            const response = await fetch('http://localhost:8080/api/productos');
+            const response = await fetch('http://localhost:8082/api/productos');
             if (!response.ok) {
                 throw new Error('Error en la respuesta del servidor');
             }
@@ -33,7 +33,7 @@ export function InventarioProductos() {
 
     const handleDesactivar = (id, nombre) => {
         if (window.confirm(`¿Estás seguro de desactivar el producto "${nombre}"?`)) {
-            fetch(`http://localhost:8080/api/productos/${id}/desactivar`, {
+            fetch(`http://localhost:8082/api/productos/${id}/desactivar`, {
                 method: 'PATCH'
             })
                 .then(response => {
@@ -54,13 +54,40 @@ export function InventarioProductos() {
         }
     };
 
+    const handleActivar = (id, nombre) => {
+        if (window.confirm(`¿Estás seguro de activar el producto "${nombre}"?`)) {
+            fetch(`http://localhost:8082/api/productos/${id}/activar`, {
+                method: 'PATCH'
+            })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Error al activar el producto');
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    console.log('Producto activar:', data);
+                    alert('Producto activar exitosamente');
+                    cargarProductos();  
+                })
+                .catch(error => {
+                    console.error('Error al activar:', error);
+                    alert('Error al activar el producto');
+                });
+        }
+    };
+
     return (
             <div className="container mi-tabla">
                 <h3 style={{ marginBottom: '20px' }}>Inventario de productos</h3>
                 <div className="row mb-3">
                     <div className="col-12 text-end">
                         <Link className="btn btn-outline-dark"
-                            style={{ fontSize: '13px' }} to="/crear-producto">Crear Producto</Link>
+                            style={{ fontSize: '13px' }} to="/crear-producto">Crear Producto
+                        </Link>
+                        <Link className="btn btn-outline-dark"
+                            style={{ fontSize: '13px' }} to="/crear-categoria">Crear Categoria
+                        </Link>
                     </div>
                 </div>
 
@@ -75,7 +102,7 @@ export function InventarioProductos() {
                                     <th>Descripción</th>
                                     <th>Precio</th>
                                     <th>Editar Producto</th>
-                                    <th>Desactivar/Eliminar </th>
+                                    <th>Activar/Desactivar </th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -112,9 +139,10 @@ export function InventarioProductos() {
                                                 </button>
                                             ) : (
                                                 <button
-                                                    className="btn btn-sm btn-secondary"
-                                                    disabled>
-                                                    Desactivado
+                                                    className="btn btn-sm btn-outline-success"
+                                                    onClick={() => handleActivar(prod.id, prod.nombre)}
+                                                    >
+                                                    Activar
                                                 </button>
                                             )}
                                         </td>
