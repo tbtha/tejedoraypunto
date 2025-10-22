@@ -1,0 +1,79 @@
+.mi-tabla-usuarios {
+    margin-top: 50px;
+}
+
+/* Control sizes for toolbar */
+.mi-tabla-usuarios .input-group .form-select,
+.mi-tabla-usuarios .input-group .form-control {
+    height: 38px;
+    padding: 6px 10px;
+}
+
+.mi-tabla-usuarios .input-group-text {
+    height: 38px;
+    display: flex;
+    align-items: center;
+}
+
+.mi-tabla-usuarios .btn,
+.mi-tabla-usuarios .btn-outline-dark,
+.mi-tabla-usuarios .btn-outline-secondary {
+    height: 38px;
+    display: inline-flex;
+    align-items: center;
+    padding: 6px 10px;
+}
+
+.mi-tabla-usuarios .btn-sm {
+    height: 34px;
+}
+
+/* Badges */
+.mi-tabla-usuarios .badge {
+    font-size: 0.85rem;
+    padding: 0.35em 0.65em;
+}
+
+/* Cards para móvil */
+.mi-tabla-usuarios .card {
+    border: 1px solid #dee2e6;
+    border-radius: 8px;
+    transition: box-shadow 0.2s ease;
+}
+
+.mi-tabla-usuarios .card:hover {
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.mi-tabla-usuarios .card-title {
+    font-size: 1.1rem;
+    color: #212529;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .mi-tabla-usuarios {
+        margin-top: 20px;
+    }
+    
+    .mi-tabla-usuarios h3 {
+        font-size: 1.3rem;
+        margin-bottom: 15px !important;
+    }
+    
+    .mi-tabla-usuarios .input-group .form-select,
+    .mi-tabla-usuarios .input-group .form-control {
+        height: 40px;
+        font-size: 0.95rem;
+    }
+    
+    .mi-tabla-usuarios .btn {
+        height: 40px;
+        font-size: 0.9rem !important;
+    }
+    
+    .mi-tabla-usuarios .input-group-text {
+        height: 40px;
+        font-size: 0.9rem;
+    }
+}
