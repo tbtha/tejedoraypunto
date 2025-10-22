@@ -33,11 +33,6 @@ El proyecto busca mantener una estética coherente con la identidad artesanal, u
 - **Vite** - Bundler y servidor de desarrollo
 - **Git** - Control de versiones
 
-### Backend (repositorio separado)
-- **Node.js** - Entorno de ejecución
-- **Express.js** - Framework del servidor
-- **Base de datos** - Gestión de productos, usuarios y contenido
-
 ---
 
 ## 📦 Instrucciones de instalación
