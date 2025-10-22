@@ -1,6 +1,0 @@
-.form-row.crear-categoria-container {
-  display: flex;
-  justify-content: center; /* Centra horizontalmente */
-  align-items: center;     /* Centra verticalmente si hay altura */
-  padding: 1rem;
-}
