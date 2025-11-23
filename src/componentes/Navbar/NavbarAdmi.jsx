@@ -47,6 +47,9 @@ export function NavbarAdmi() {
                 <Link className="nav-link" to="/inventario">Gestión de productos</Link>
               </li>
               <li className="nav-item">
+                <Link className="nav-link" to="/boletas">Gestión de pedidos</Link>
+              </li>
+              <li className="nav-item">
                 <button 
                   className="nav-link btn btn-link" 
                   onClick={handleLogout}

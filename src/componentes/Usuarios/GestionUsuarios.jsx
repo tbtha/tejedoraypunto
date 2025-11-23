@@ -92,7 +92,7 @@ export function GestionUsuarios() {
 
     return (
         <div className="container-fluid mi-tabla-usuarios px-2 px-md-3">
-            <h3 style={{ marginBottom: '20px' }}>Gestión de Usuarios</h3>
+            <h3 style={{ marginBottom: '20px' }}>Gestión de usuarios</h3>
             
             <div className="row mb-3 g-2">
                 <div className="col-12 col-md-6">

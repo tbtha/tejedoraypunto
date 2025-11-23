@@ -65,6 +65,9 @@ export function Navbar() {
                     <Link className="nav-link" to="/carrito">Carrito</Link>
                   </li>
                   <li className="nav-item">
+                    <Link className="nav-link" to="/mis-pedidos">Mis Pedidos</Link>
+                  </li>
+                  <li className="nav-item">
                     <button 
                       className="nav-link btn btn-link" 
                       onClick={handleLogout}

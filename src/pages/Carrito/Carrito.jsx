@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import { Footer } from "../../componentes/Footer/Footer";
 import { Navbar } from "../../componentes/Navbar/Navbar";
 import { 
@@ -11,6 +12,7 @@ import {
 import './Carrito.css';
 
 export function Carrito(){
+    const navigate = useNavigate();
     const [carrito, setCarrito] = useState([]);
     const [precioTotal, setPrecioTotal] = useState(0);
 
@@ -203,7 +205,10 @@ export function Carrito(){
                                             <strong className="text-primary">{formatearPrecio(precioTotal)}</strong>
                                         </div>
 
-                                        <button className="btn btn-dark w-100 mb-2">
+                                        <button 
+                                            className="btn btn-dark w-100 mb-2"
+                                            onClick={() => navigate('/checkout')}
+                                        >
                                             Proceder al Pago
                                         </button>
                                         

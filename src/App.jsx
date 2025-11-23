@@ -15,6 +15,9 @@ import {CrearUsuario} from './componentes/Usuarios/CrearUsuario';
 import {EditarUsuario} from './componentes/Usuarios/EditarUsuario';
 // import {InicioSesion} from './pages/InicioSesion/inicioSesion';
 import { Carrito } from './pages/Carrito/Carrito';
+import { Checkout } from './pages/Checkout/Checkout';
+import { Pedidos } from './pages/MisPedidos/MisPedidos';
+import { AdminBoletas } from './pages/GestionBoletas/GestionBoletas';
 import { AdminRoute } from './componentes/AdminRoute/AdminRoute';
 import { ProtectedRoute } from './componentes/ProtectedRoute/ProtectedRoute';
 // import './App.css'  
@@ -38,6 +41,7 @@ function App() {
           <Route path="/dashboard" element={<AdminRoute><Dashboard /></AdminRoute>} />
           <Route path="/inventario" element={<AdminRoute><Inventario /></AdminRoute>} />
           <Route path="/usuarios" element={<AdminRoute><AdminUsuarios /></AdminRoute>} />
+          <Route path="/boletas" element={<AdminRoute><AdminBoletas /></AdminRoute>} />
           <Route path="/crear-usuario" element={<AdminRoute><CrearUsuario /></AdminRoute>} />
           <Route path="/editar-usuario/:id" element={<AdminRoute><EditarUsuario /></AdminRoute>} />
           <Route path="/crear-producto" element={<AdminRoute><CrearProducto /></AdminRoute>} /> 
@@ -46,6 +50,8 @@ function App() {
           
           {/* user - Rutas protegidas que requieren autenticación (cualquier rol) */}
           <Route path="/carrito" element={<ProtectedRoute><Carrito /></ProtectedRoute>} />
+          <Route path="/checkout" element={<ProtectedRoute><Checkout /></ProtectedRoute>} />
+          <Route path="/mis-pedidos" element={<ProtectedRoute><Pedidos /></ProtectedRoute>} />
        </Routes>
     </Router>
   )

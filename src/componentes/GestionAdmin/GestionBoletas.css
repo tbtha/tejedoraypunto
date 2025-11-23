@@ -1,0 +1,211 @@
+.mi-tabla {
+    margin-top: 50px;
+}
+
+/* Control sizes for toolbar */
+.mi-tabla .input-group .form-select,
+.mi-tabla .input-group .form-control {
+    height: 38px;
+    padding: 6px 10px;
+}
+
+.mi-tabla .input-group-text {
+    height: 38px;
+    display: flex;
+    align-items: center;
+}
+
+.mi-tabla .btn,
+.mi-tabla .btn-outline-dark,
+.mi-tabla .btn-outline-secondary {
+    height: 38px;
+    display: inline-flex;
+    align-items: center;
+    padding: 6px 10px;
+}
+
+.mi-tabla .btn-sm {
+    height: 34px;
+}
+
+/* Badges */
+.mi-tabla .badge {
+    font-size: 0.85rem;
+    padding: 0.35em 0.65em;
+}
+
+/* Cards para filtros */
+.mi-tabla .card {
+    border: 1px solid #dee2e6;
+    border-radius: 8px;
+    transition: box-shadow 0.2s ease;
+}
+
+.mi-tabla .card:hover {
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.mi-tabla .card-title {
+    font-size: 1.1rem;
+    color: #212529;
+}
+
+/* Table styles */
+.mi-tabla .table-responsive {
+  overflow: visible;
+}
+
+.mi-tabla .table thead {
+  background-color: #212529;
+  color: white;
+}
+
+.mi-tabla .table tbody tr {
+  transition: background-color 0.2s ease;
+  position: relative;
+}
+
+.mi-tabla .table tbody tr:hover {
+  background-color: #f8f9fa;
+}
+
+/* Dropdown fixes */
+.mi-tabla .dropdown {
+  position: static;
+}
+
+.mi-tabla .dropdown-menu {
+  z-index: 1060;
+}
+
+/* Modal */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1050;
+  padding: 20px;
+}
+
+.modal-content-large {
+  background: white;
+  border-radius: 10px;
+  max-width: 900px;
+  width: 100%;
+  max-height: 90vh;
+  overflow-y: auto;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+}
+
+.modal-header {
+  padding: 20px 30px;
+  border-bottom: 1px solid #dee2e6;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #f8f9fa;
+}
+
+.modal-header h4 {
+  margin: 0;
+  font-size: 1.5rem;
+}
+
+.modal-body {
+  padding: 30px;
+}
+
+.modal-footer {
+  padding: 15px 30px;
+  border-top: 1px solid #dee2e6;
+  display: flex;
+  justify-content: flex-end;
+  background-color: #f8f9fa;
+}
+
+.btn-close {
+  background: transparent;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+  padding: 0;
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.btn-close::before {
+  content: "×";
+  font-size: 2rem;
+  color: #666;
+}
+
+.btn-close:hover::before {
+  color: #000;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .mi-tabla {
+    margin-top: 20px;
+  }
+  
+  .mi-tabla h3 {
+    font-size: 1.3rem;
+    margin-bottom: 15px !important;
+  }
+  
+  .mi-tabla .input-group .form-select,
+  .mi-tabla .input-group .form-control {
+    height: 40px;
+    font-size: 0.95rem;
+  }
+  
+  .mi-tabla .btn {
+    height: 40px;
+    font-size: 0.9rem !important;
+  }
+  
+  .mi-tabla .input-group-text {
+    height: 40px;
+    font-size: 0.9rem;
+  }
+
+  .mi-tabla .table {
+    font-size: 0.875rem;
+  }
+
+  .modal-content-large {
+    margin: 10px;
+    max-height: 95vh;
+  }
+
+  .modal-header,
+  .modal-body,
+  .modal-footer {
+    padding: 15px 20px;
+  }
+
+  .modal-header h4 {
+    font-size: 1.25rem;
+  }
+}
+
+@media (max-width: 576px) {
+  .mi-tabla .btn-group {
+    display: block;
+    width: 100%;
+  }
+
+  .mi-tabla .dropdown-toggle {
+    width: 100%;
+  }
+}
