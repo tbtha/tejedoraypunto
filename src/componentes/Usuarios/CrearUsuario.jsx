@@ -82,7 +82,7 @@ export function CrearUsuario() {
     try {
       await createUsuario(formData);
       alert('Usuario creado exitosamente');
-      navigate('/dashboard/gestion-usuarios');
+      navigate('/usuarios');
     } catch (error) {
       console.error('Error:', error);
       setMensajeError(error.message || 'Error al conectar con el servidor');
@@ -260,7 +260,7 @@ export function CrearUsuario() {
                     <button
                       type="button"
                       className="btn btn-outline-secondary"
-                      onClick={() => navigate('/gestion-usuarios')}
+                      onClick={() => navigate('/usuarios')}
                     >
                       Cancelar
                     </button>

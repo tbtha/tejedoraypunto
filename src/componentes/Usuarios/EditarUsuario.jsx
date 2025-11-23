@@ -21,7 +21,7 @@ export  function EditarUsuario() {
     email: '',
     region: '',
     comuna: '',
-    rol: 'USER',
+    rol: 'CLIENTE',
     activo: true
   });
 
@@ -37,7 +37,7 @@ export  function EditarUsuario() {
         email: data.email || '',
         region: data.region || '',
         comuna: data.comuna || '',
-        rol: data.rol || 'USER',
+        rol: data.rol || 'CLIENTE',
         activo: data.activo !== undefined ? data.activo : true
       });
     } catch (error) {
@@ -98,6 +98,8 @@ export  function EditarUsuario() {
     }
 
     try {
+      console.log('Datos que se enviarán al backend:', formData);
+      console.log('ID del usuario:', id);
       await updateUsuario(id, formData);
       alert('Usuario actualizado exitosamente');
       navigate('/usuarios');
@@ -241,7 +243,7 @@ export  function EditarUsuario() {
                           onChange={handleChange}
                           required
                         >
-                          <option value="USER">Usuario</option>
+                          <option value="CLIENTE">Cliente</option>
                           <option value="ADMIN">Administrador</option>
                         </select>
                       </div>
@@ -272,7 +274,7 @@ export  function EditarUsuario() {
                     <button
                       type="button"
                       className="btn btn-outline-secondary"
-                      onClick={() => navigate('usuarios')}
+                      onClick={() => navigate('/usuarios')}
                     >
                       Cancelar
                     </button>

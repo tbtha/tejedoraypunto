@@ -108,7 +108,7 @@ export function EditarProd() {
             setSuccess(true);
 
             setTimeout(() => {
-                navigate('/productos');
+                navigate('/inventario');
             }, 1500);
 
         } catch (err) {
