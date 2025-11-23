@@ -1,0 +1,46 @@
+.carrito-container {
+  min-height: 60vh;
+  padding-bottom: 2rem;
+}
+
+.carrito-container .card {
+  border: 1px solid #dee2e6;
+  transition: box-shadow 0.3s ease;
+}
+
+.carrito-container .card:hover {
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.carrito-container h2 {
+  font-weight: 600;
+  color: #333;
+}
+
+.carrito-container h5 {
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+.carrito-container .input-group-sm .form-control {
+  max-width: 60px;
+}
+
+.carrito-container .btn-outline-danger:hover {
+  background-color: #dc3545;
+  color: white;
+}
+
+.carrito-container .text-primary {
+  font-size: 1.25rem;
+}
+
+@media (max-width: 768px) {
+  .carrito-container .card-body .row {
+    text-align: center;
+  }
+  
+  .carrito-container .input-group-sm .form-control {
+    max-width: 50px;
+  }
+}

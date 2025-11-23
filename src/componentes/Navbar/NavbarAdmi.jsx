@@ -1,6 +1,23 @@
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { logout, getUser } from '../../services/authService';
+import { useEffect, useState } from 'react';
 
 export function NavbarAdmi() {
+  const navigate = useNavigate();
+  const [usuario, setUsuario] = useState(null);
+
+  useEffect(() => {
+    const user = getUser();
+    setUsuario(user);
+  }, []);
+
+  const handleLogout = () => {
+    if (window.confirm('¿Estás seguro de cerrar sesión?')) {
+      logout();
+      navigate('/registro');
+    }
+  };
+
   return (
     <>
       <nav className="navbar navbar-expand-lg navbar-custom">
@@ -30,7 +47,13 @@ export function NavbarAdmi() {
                 <Link className="nav-link" to="/inventario">Gestión de productos</Link>
               </li>
               <li className="nav-item">
-                <Link className="nav-link" to="/">Cerrar sesión</Link>
+                <button 
+                  className="nav-link btn btn-link" 
+                  onClick={handleLogout}
+                  style={{ border: 'none', background: 'none', cursor: 'pointer' }}
+                >
+                  Cerrar sesión
+                </button>
               </li>
             </ul>
           </div>
@@ -38,7 +61,9 @@ export function NavbarAdmi() {
       </nav>
 
       <div className="container-fluid text-end">
-        <span id="mensajeNavbarSesion" className="fw-semibold"></span>
+        <span id="mensajeNavbarSesion" className="fw-semibold">
+          {usuario && `Bienvenido, ${usuario.nombre}`}
+        </span>
       </div>
     </>
   );

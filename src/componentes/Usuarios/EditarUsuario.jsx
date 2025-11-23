@@ -8,6 +8,7 @@ import {
 } from '../InicioSesion/validaciones';
 import { regionesYComunas } from '../InicioSesion/regionycomuna';
 import './EditarUsuario.css';
+import { getUsuarioById, updateUsuario } from '../../services/apiService';
 
 export  function EditarUsuario() {
   const navigate = useNavigate();
@@ -30,20 +31,15 @@ export  function EditarUsuario() {
 
   const cargarUsuario = async () => {
     try {
-      const response = await fetch(`http://localhost:8082/api/usuarios/${id}`);
-      if (response.ok) {
-        const data = await response.json();
-        setFormData({
-          nombre: data.nombre || '',
-          email: data.email || '',
-          region: data.region || '',
-          comuna: data.comuna || '',
-          rol: data.rol || 'USER',
-          activo: data.activo !== undefined ? data.activo : true
-        });
-      } else {
-        setMensajeError('Error al cargar el usuario');
-      }
+      const data = await getUsuarioById(id);
+      setFormData({
+        nombre: data.nombre || '',
+        email: data.email || '',
+        region: data.region || '',
+        comuna: data.comuna || '',
+        rol: data.rol || 'USER',
+        activo: data.activo !== undefined ? data.activo : true
+      });
     } catch (error) {
       console.error('Error:', error);
       setMensajeError('Error al conectar con el servidor');
@@ -102,24 +98,12 @@ export  function EditarUsuario() {
     }
 
     try {
-      const response = await fetch(`http://localhost:8082/api/usuarios/${id}`, {
-        method: 'PUT',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(formData),
-      });
-
-      if (response.ok) {
-        alert('Usuario actualizado exitosamente');
-        navigate('/usuarios');
-      } else {
-        const errorData = await response.json();
-        setMensajeError(errorData.message || 'Error al actualizar usuario');
-      }
+      await updateUsuario(id, formData);
+      alert('Usuario actualizado exitosamente');
+      navigate('/usuarios');
     } catch (error) {
       console.error('Error:', error);
-      setMensajeError('Error al conectar con el servidor');
+      setMensajeError(error.message || 'Error al conectar con el servidor');
     }
   };
 

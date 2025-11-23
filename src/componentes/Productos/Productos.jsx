@@ -1,7 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import './Productos.css';
+import { getProductos, getCategorias } from '../../services/apiService';
+import { agregarAlCarrito } from '../../services/carritoService';
+import { isAuthenticated } from '../../services/authService';
+import { useNavigate } from 'react-router-dom';
 
 export function Productos() {
+  const navigate = useNavigate();
   const [productos, setProductos] = useState([]);
   const [productosFiltrados, setProductosFiltrados] = useState([]);
   const [categorias, setCategorias] = useState([]);
@@ -20,20 +25,13 @@ export function Productos() {
 
   const cargarProductos = async () => {
     try {
-      const response = await fetch('http://localhost:8082/api/productos');
-      if (response.ok) {
-        const data = await response.json();
-        // Filtrar solo productos activos
-        const productosActivos = Array.isArray(data) 
-          ? data.filter(p => p.activo === true) 
-          : [];
-        setProductos(productosActivos);
-        setProductosFiltrados(productosActivos);
-      } else {
-        console.error('Error al cargar productos');
-        setProductos([]);
-        setProductosFiltrados([]);
-      }
+      const data = await getProductos();
+      // Filtrar solo productos activos
+      const productosActivos = Array.isArray(data) 
+        ? data.filter(p => p.activo === true) 
+        : [];
+      setProductos(productosActivos);
+      setProductosFiltrados(productosActivos);
     } catch (error) {
       console.error('Error:', error);
       setProductos([]);
@@ -45,14 +43,8 @@ export function Productos() {
 
   const cargarCategorias = async () => {
     try {
-      const response = await fetch('http://localhost:8082/api/categorias');
-      if (response.ok) {
-        const data = await response.json();
-        setCategorias(Array.isArray(data) ? data : []);
-      } else {
-        console.error('Error al cargar categorías');
-        setCategorias([]);
-      }
+      const data = await getCategorias();
+      setCategorias(Array.isArray(data) ? data : []);
     } catch (error) {
       console.error('Error:', error);
       setCategorias([]);
@@ -102,6 +94,30 @@ export function Productos() {
     }
     
     return `/img/otros/${rutaImagen}`;
+  };
+
+  const handleAgregarAlCarrito = (producto) => {
+    // Verificar si el usuario está autenticado
+    if (!isAuthenticated()) {
+      alert('Tienes que iniciar sesión para agregar productos al carrito');
+      navigate('/registro');
+      return;
+    }
+
+    // Verificar stock
+    if (producto.stock <= 0) {
+      alert('Producto sin stock disponible');
+      return;
+    }
+
+    // Agregar al carrito
+    const resultado = agregarAlCarrito(producto, 1);
+    
+    if (resultado.success) {
+      alert(`${producto.nombre} agregado al carrito`);
+    } else {
+      alert('Error al agregar el producto al carrito');
+    }
   };
 
   if (cargando) {
@@ -206,6 +222,7 @@ export function Productos() {
                         <button 
                           className="btn btn-dark w-100"
                           disabled={producto.stock === 0}
+                          onClick={() => handleAgregarAlCarrito(producto)}
                         >
                           {producto.stock === 0 ? 'No disponible' : 'Agregar al carrito'}
                         </button>

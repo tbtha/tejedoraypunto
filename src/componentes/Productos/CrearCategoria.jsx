@@ -4,8 +4,7 @@ import { Navbar } from "../Navbar/Navbar";
 import { Footer } from "../Footer/Footer";
 import './CrearProducto.css';
 import './CrearCategoria.css';
-
-const API_BASE_URL = 'http://localhost:8082/api';
+import { createCategoria } from '../../services/apiService';
 
 export function CrearCategoria() {
   
@@ -36,16 +35,7 @@ export function CrearCategoria() {
   };
 
     try {
-      const response = await fetch(`${API_BASE_URL}/categorias`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(categoriaParaEnviar)
-      });
-
-      if (!response.ok) {
-        const errorData = await response.json().catch(() => ({}));
-        throw new Error(errorData.message || 'Error al crear el categoria');
-      }
+      await createCategoria(categoriaParaEnviar);
 
       navigate('/inventario', {
         state: { message: 'Categoria creado exitosamente' }
