@@ -3,6 +3,8 @@ import { useNavigate } from 'react-router-dom';
 import { NavbarAdmi } from "../Navbar/NavbarAdmi";
 import { Footer } from "../Footer/Footer";
 import './CrearProducto.css';
+import { getCategorias, createProducto } from '../../services/apiService';
+import { getToken } from '../../services/authService';
 
 const API_BASE_URL = 'http://localhost:8082/api';
 
@@ -28,21 +30,15 @@ export function CrearProducto() {
   const [imagenPreview, setImagenPreview] = useState(null);
 
   useEffect(() => {
-    fetch(`${API_BASE_URL}/categorias`)
-      .then(response => {
-        if (!response.ok) {
-          throw new Error('Error al cargar categorías');
-        }
-        return response.json();
-      })
+    getCategorias()
       .then(data => {
         setCategorias(data);
-        setLoadingCategorias(false); // ← Termina la carga exitosa
+        setLoadingCategorias(false);
       })
       .catch(error => {
         console.error('Error al obtener las categorías:', error);
         setError('No se pudieron cargar las categorías');
-        setLoadingCategorias(false); // ← Termina la carga con error
+        setLoadingCategorias(false);
       });
   }, []);
 
@@ -96,8 +92,12 @@ export function CrearProducto() {
       const formData = new FormData();
       formData.append('imagen', file);
 
+      const token = getToken();
       const response = await fetch(`${API_BASE_URL}/upload-imagen`, {
         method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${token}`
+        },
         body: formData
       });
 
@@ -137,16 +137,7 @@ export function CrearProducto() {
         categoria: { id: parseInt(producto.categoria, 10) }
       };
 
-      const response = await fetch(`${API_BASE_URL}/productos`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(productoParaEnviar)
-      });
-
-      if (!response.ok) {
-        const errorData = await response.json().catch(() => ({}));
-        throw new Error(errorData.message || 'Error al crear el producto');
-      }
+      await createProducto(productoParaEnviar);
 
       navigate('/inventario', {
         state: { message: 'Producto creado exitosamente' }

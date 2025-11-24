@@ -10,6 +10,7 @@ import {
 } from '../InicioSesion/validaciones';
 import { regionesYComunas } from '../InicioSesion/regionycomuna';
 import './CrearUsuario.css';
+import { createUsuario } from '../../services/apiService';
 
 export function CrearUsuario() {
   const navigate = useNavigate();
@@ -79,24 +80,12 @@ export function CrearUsuario() {
     }
 
     try {
-      const response = await fetch('http://localhost:8082/api/usuarios', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(formData),
-      });
-
-      if (response.ok) {
-        alert('Usuario creado exitosamente');
-        navigate('/dashboard/gestion-usuarios');
-      } else {
-        const errorData = await response.json();
-        setMensajeError(errorData.message || 'Error al crear usuario');
-      }
+      await createUsuario(formData);
+      alert('Usuario creado exitosamente');
+      navigate('/usuarios');
     } catch (error) {
       console.error('Error:', error);
-      setMensajeError('Error al conectar con el servidor');
+      setMensajeError(error.message || 'Error al conectar con el servidor');
     }
   };
 
@@ -271,7 +260,7 @@ export function CrearUsuario() {
                     <button
                       type="button"
                       className="btn btn-outline-secondary"
-                      onClick={() => navigate('/gestion-usuarios')}
+                      onClick={() => navigate('/usuarios')}
                     >
                       Cancelar
                     </button>

@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { NavbarAdmi } from '../Navbar/NavbarAdmi';
 import { Footer } from '../Footer/Footer';
+import { getProductoById, getCategorias, updateProducto } from '../../services/apiService';
 
 export function EditarProd() {
     const { id } = useParams();
@@ -31,12 +32,7 @@ export function EditarProd() {
             try {
                 setLoading(true);
 
-                const respProducto = await fetch(`http://localhost:8082/api/productos/${productoId}`);
-
-                if (!respProducto.ok) {
-                    throw new Error('Error al cargar el producto')
-                }
-                const dataProducto = await respProducto.json();
+                const dataProducto = await getProductoById(productoId);
 
                 console.log('Producto cargado:', dataProducto);
 
@@ -46,12 +42,7 @@ export function EditarProd() {
                     descripcion: dataProducto.descripcion || ''
                 });
 
-                const respCategorias = await fetch('http://localhost:8082/api/categorias');
-
-                if (!respCategorias.ok) {
-                    throw new Error('Error al cargar categorías')
-                }
-                const dataCategorias = await respCategorias.json();
+                const dataCategorias = await getCategorias();
                 setCategorias(dataCategorias);
 
                 setError(null);
@@ -112,26 +103,12 @@ export function EditarProd() {
 
             console.log('Datos a enviar:', datosActualizados);
 
-            const response = await fetch(`http://localhost:8082/api/productos/${productoId}`, {
-                method: 'PUT',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(datosActualizados)
-            });
-
-            if (!response.ok) {
-                const errorText = await response.text();
-                console.error('Respuesta del servidor:', errorText);
-                throw new Error('Error al actualizar el producto');
-            }
-
-            const productoActualizado = await response.json();
+            const productoActualizado = await updateProducto(productoId, datosActualizados);
             console.log('Producto actualizado exitosamente:', productoActualizado);
             setSuccess(true);
 
             setTimeout(() => {
-                navigate('/productos');
+                navigate('/inventario');
             }, 1500);
 
         } catch (err) {

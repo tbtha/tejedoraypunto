@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { getBoletas } from "../../services/boletaService";
 import "./ModuloDashboard.css";
 
 export function ModuloDashboard() {
@@ -7,7 +8,15 @@ export function ModuloDashboard() {
         totalUsuarios: 0,
         productosBajoStock: [],
         valorInventario: 0,
-        productosPorCategoria: {}
+        productosPorCategoria: {},
+        // Estadísticas de pedidos
+        totalPedidos: 0,
+        pedidosPendientes: 0,
+        pedidosConfirmados: 0,
+        pedidosEnviados: 0,
+        pedidosEntregados: 0,
+        pedidosCancelados: 0,
+        totalVentas: 0
     });
     const [categorias, setCategorias] = useState({});
 
@@ -86,12 +95,59 @@ export function ModuloDashboard() {
                 }
             };
 
+            // Obtener estadísticas de pedidos (boletas)
+            let pedidosStats = {
+                totalPedidos: 0,
+                pedidosPendientes: 0,
+                pedidosConfirmados: 0,
+                pedidosEnviados: 0,
+                pedidosEntregados: 0,
+                pedidosCancelados: 0,
+                totalVentas: 0
+            };
+
+            try {
+                const boletas = await getBoletas();
+                if (Array.isArray(boletas)) {
+                    pedidosStats.totalPedidos = boletas.length;
+                    
+                    boletas.forEach(boleta => {
+                        // Contar por estado
+                        switch(boleta.estado) {
+                            case 'PENDIENTE':
+                                pedidosStats.pedidosPendientes++;
+                                break;
+                            case 'CONFIRMADA':
+                                pedidosStats.pedidosConfirmados++;
+                                break;
+                            case 'ENVIADA':
+                                pedidosStats.pedidosEnviados++;
+                                break;
+                            case 'ENTREGADA':
+                                pedidosStats.pedidosEntregados++;
+                                break;
+                            case 'CANCELADA':
+                                pedidosStats.pedidosCancelados++;
+                                break;
+                        }
+                        
+                        // Sumar total de ventas (solo pedidos no cancelados)
+                        if (boleta.estado !== 'CANCELADA') {
+                            pedidosStats.totalVentas += Number(boleta.total || 0);
+                        }
+                    });
+                }
+            } catch (error) {
+                console.error('Error al cargar estadísticas de pedidos:', error);
+            }
+
             setEstadisticas({
                 totalProductos: productosArray.length,
                 totalUsuarios: Array.isArray(usuarios) ? usuarios.length : 0,
                 productosBajoStock: productosBajos,
                 valorInventario,
-                productosPorCategoria
+                productosPorCategoria,
+                ...pedidosStats
             });
 
         } catch (error) {
@@ -146,6 +202,83 @@ export function ModuloDashboard() {
                         <div className="card-body text-center">
                             <h5 className="card-title mb-2 mb-md-3">Valor Total del Inventario</h5>
                             <p className="display-stat text-success mb-0">${estadisticas.valorInventario.toLocaleString()}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            {/* Estadísticas de Pedidos */}
+            <div className="row mt-3 mt-md-4 g-2 g-md-3">
+                <div className="col-12">
+                    <h4 className="mb-3">Estadísticas de Pedidos</h4>
+                </div>
+                
+                {/* Total de Pedidos */}
+                <div className="col-12 col-sm-6 col-lg-4">
+                    <div className="card shadow-sm stat-card">
+                        <div className="card-body text-center">
+                            <h5 className="card-title">Total Pedidos</h5>
+                            <p className="display-stat">{estadisticas.totalPedidos}</p>
+                        </div>
+                    </div>
+                </div>
+
+                {/* Pedidos Pendientes */}
+                <div className="col-12 col-sm-6 col-lg-4">
+                    <div className="card shadow-sm stat-card">
+                        <div className="card-body text-center">
+                            <h5 className="card-title">Pendientes</h5>
+                            <p className="display-stat text-warning">{estadisticas.pedidosPendientes}</p>
+                        </div>
+                    </div>
+                </div>
+
+                {/* Pedidos Confirmados */}
+                <div className="col-12 col-sm-6 col-lg-4">
+                    <div className="card shadow-sm stat-card">
+                        <div className="card-body text-center">
+                            <h5 className="card-title">Confirmados</h5>
+                            <p className="display-stat text-info">{estadisticas.pedidosConfirmados}</p>
+                        </div>
+                    </div>
+                </div>
+
+                {/* Pedidos Enviados */}
+                <div className="col-12 col-sm-6 col-lg-4">
+                    <div className="card shadow-sm stat-card">
+                        <div className="card-body text-center">
+                            <h5 className="card-title">Enviados</h5>
+                            <p className="display-stat text-primary">{estadisticas.pedidosEnviados}</p>
+                        </div>
+                    </div>
+                </div>
+
+                {/* Pedidos Entregados */}
+                <div className="col-12 col-sm-6 col-lg-4">
+                    <div className="card shadow-sm stat-card">
+                        <div className="card-body text-center">
+                            <h5 className="card-title">Entregados</h5>
+                            <p className="display-stat text-success">{estadisticas.pedidosEntregados}</p>
+                        </div>
+                    </div>
+                </div>
+
+                {/* Pedidos Cancelados */}
+                <div className="col-12 col-sm-6 col-lg-4">
+                    <div className="card shadow-sm stat-card">
+                        <div className="card-body text-center">
+                            <h5 className="card-title">Cancelados</h5>
+                            <p className="display-stat text-danger">{estadisticas.pedidosCancelados}</p>
+                        </div>
+                    </div>
+                </div>
+
+                {/* Total de Ventas */}
+                <div className="col-12">
+                    <div className="card shadow-sm">
+                        <div className="card-body text-center">
+                            <h5 className="card-title mb-2 mb-md-3">Total Ventas (Pedidos no cancelados)</h5>
+                            <p className="display-stat text-success mb-0">${estadisticas.totalVentas.toLocaleString()}</p>
                         </div>
                     </div>
                 </div>

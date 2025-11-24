@@ -1,0 +1,122 @@
+.checkout-container {
+  min-height: 70vh;
+  background-color: #f8f9fa;
+}
+
+.checkout-container .card {
+  border: none;
+  border-radius: 10px;
+}
+
+.checkout-container .card-title {
+  color: #333;
+  font-weight: 600;
+}
+
+.checkout-container .form-label {
+  font-weight: 500;
+  color: #555;
+}
+
+.checkout-container .form-control,
+.checkout-container .form-select {
+  border-radius: 8px;
+  border: 1px solid #ddd;
+  padding: 10px 15px;
+}
+
+.checkout-container .form-control:focus,
+.checkout-container .form-select:focus {
+  border-color: #333;
+  box-shadow: 0 0 0 0.2rem rgba(0, 0, 0, 0.1);
+}
+
+.checkout-container .form-check-input:checked {
+  background-color: #333;
+  border-color: #333;
+}
+
+.checkout-container .btn-dark {
+  background-color: #333;
+  border-color: #333;
+  border-radius: 8px;
+  padding: 12px 20px;
+  font-weight: 500;
+  transition: all 0.3s ease;
+}
+
+.checkout-container .btn-dark:hover {
+  background-color: #000;
+  border-color: #000;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.checkout-container .btn-dark:disabled {
+  background-color: #6c757d;
+  border-color: #6c757d;
+  cursor: not-allowed;
+}
+
+.checkout-container .btn-outline-secondary {
+  border-radius: 8px;
+  padding: 12px 20px;
+  font-weight: 500;
+}
+
+.checkout-container .productos-resumen {
+  max-height: 400px;
+  overflow-y: auto;
+}
+
+.checkout-container .productos-resumen::-webkit-scrollbar {
+  width: 6px;
+}
+
+.checkout-container .productos-resumen::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 10px;
+}
+
+.checkout-container .productos-resumen::-webkit-scrollbar-thumb {
+  background: #888;
+  border-radius: 10px;
+}
+
+.checkout-container .productos-resumen::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+
+.checkout-container .img-thumbnail {
+  border-radius: 8px;
+  border: 1px solid #ddd;
+}
+
+.checkout-container .sticky-top {
+  position: sticky;
+  z-index: 10;
+}
+
+/* Responsive */
+@media (max-width: 991px) {
+  .checkout-container .sticky-top {
+    position: relative;
+    top: 0 !important;
+  }
+}
+
+@media (max-width: 576px) {
+  .checkout-container h2 {
+    font-size: 1.5rem;
+  }
+
+  .checkout-container h4 {
+    font-size: 1.2rem;
+  }
+
+  .checkout-container .btn-dark,
+  .checkout-container .btn-outline-secondary {
+    padding: 10px 15px;
+    font-size: 0.95rem;
+  }
+}

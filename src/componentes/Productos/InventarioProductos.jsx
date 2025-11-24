@@ -1,6 +1,8 @@
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import './Productos.css';
+import { getProductos, getCategorias } from '../../services/apiService';
+import { getToken } from '../../services/authService';
 
 export function InventarioProductos() {
 
@@ -11,12 +13,7 @@ export function InventarioProductos() {
  
     const cargarProductos = async () => {
         try {
-            const response = await fetch('http://localhost:8082/api/productos');
-            if (!response.ok) {
-                throw new Error('Error en la respuesta del servidor');
-            }
-
-            const data = await response.json();
+            const data = await getProductos();
             console.log("Respuesta del backend:", data);
 
             if (!Array.isArray(data)) {
@@ -40,9 +37,7 @@ export function InventarioProductos() {
 
     const cargarCategorias = async () => {
         try {
-            const resp = await fetch('http://localhost:8082/api/categorias');
-            if (!resp.ok) throw new Error('Error al cargar categorías');
-            const data = await resp.json();
+            const data = await getCategorias();
             setCategorias(data);
         } catch (err) {
             console.error('Error al obtener categorias:', err);
@@ -56,8 +51,12 @@ export function InventarioProductos() {
 
     const handleDesactivar = (id, nombre) => {
         if (window.confirm(`¿Estás seguro de desactivar el producto "${nombre}"?`)) {
+            const token = getToken();
             fetch(`http://localhost:8082/api/productos/${id}/desactivar`, {
-                method: 'PATCH'
+                method: 'PATCH',
+                headers: {
+                    'Authorization': `Bearer ${token}`
+                }
             })
                 .then(response => {
                     if (!response.ok) {
@@ -79,8 +78,12 @@ export function InventarioProductos() {
 
     const handleActivar = (id, nombre) => {
         if (window.confirm(`¿Estás seguro de activar el producto "${nombre}"?`)) {
+            const token = getToken();
             fetch(`http://localhost:8082/api/productos/${id}/activar`, {
-                method: 'PATCH'
+                method: 'PATCH',
+                headers: {
+                    'Authorization': `Bearer ${token}`
+                }
             })
                 .then(response => {
                     if (!response.ok) {

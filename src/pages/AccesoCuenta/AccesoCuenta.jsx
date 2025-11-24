@@ -1,11 +1,20 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useLocation } from "react-router-dom";
 import { Navbar } from "../../componentes/Navbar/Navbar";
 import { LoginForm } from "../../componentes/InicioSesion/LoginForm";
 import { RegistroForm } from "../../componentes/InicioSesion/RegistroForm";
 import { Footer } from "../../componentes/Footer/Footer";
 
 export function AccesoCuenta() {
+  const location = useLocation();
   const [formularioVisible, setFormularioVisible] = useState("login");
+
+  useEffect(() => {
+    // Si viene del registro exitoso, cambiar a login
+    if (location.state?.tab) {
+      setFormularioVisible(location.state.tab);
+    }
+  }, [location]);
 
   return (
     <>

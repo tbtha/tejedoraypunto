@@ -1,6 +1,8 @@
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import './GestionUsuarios.css';
+import { getUsuarios } from '../../services/apiService';
+import { getToken } from '../../services/authService';
 
 export function GestionUsuarios() {
     const [usuarios, setUsuarios] = useState([]);
@@ -9,12 +11,7 @@ export function GestionUsuarios() {
 
     const cargarUsuarios = async () => {
         try {                            
-            const response = await fetch('http://localhost:8082/api/usuarios');
-            if (!response.ok) {
-                throw new Error('Error en la respuesta del servidor');
-            }
-
-            const data = await response.json();
+            const data = await getUsuarios();
             console.log("Usuarios del backend:", data);
 
             if (!Array.isArray(data)) {
@@ -41,8 +38,12 @@ export function GestionUsuarios() {
 
     const handleDesactivar = (id, nombre) => {
         if (window.confirm(`¿Estás seguro de desactivar al usuario "${nombre}"?`)) {
+            const token = getToken();
             fetch(`http://localhost:8082/api/usuarios/${id}/desactivar`, {
-                method: 'PATCH'
+                method: 'PATCH',
+                headers: {
+                    'Authorization': `Bearer ${token}`
+                }
             })
                 .then(response => {
                     if (!response.ok) {
@@ -64,8 +65,12 @@ export function GestionUsuarios() {
 
     const handleActivar = (id, nombre) => {
         if (window.confirm(`¿Estás seguro de activar al usuario "${nombre}"?`)) {
+            const token = getToken();
             fetch(`http://localhost:8082/api/usuarios/${id}/activar`, {
-                method: 'PATCH'
+                method: 'PATCH',
+                headers: {
+                    'Authorization': `Bearer ${token}`
+                }
             })
                 .then(response => {
                     if (!response.ok) {
@@ -87,7 +92,7 @@ export function GestionUsuarios() {
 
     return (
         <div className="container-fluid mi-tabla-usuarios px-2 px-md-3">
-            <h3 style={{ marginBottom: '20px' }}>Gestión de Usuarios</h3>
+            <h3 style={{ marginBottom: '20px' }}>Gestión de usuarios</h3>
             
             <div className="row mb-3 g-2">
                 <div className="col-12 col-md-6">

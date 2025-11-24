@@ -2,6 +2,7 @@
 import { useState } from "react";
 import { validarCorreo, validarPassword } from "./validaciones";
 import { useNavigate } from "react-router-dom";
+import { login } from "../../services/authService";
 
 export function LoginForm() {
   const navigate = useNavigate();
@@ -10,6 +11,7 @@ export function LoginForm() {
   const [mensajeCorreo, setMensajeCorreo] = useState("");
   const [mensajePassword, setMensajePassword] = useState("");
   const [mensajeFinal, setMensajeFinal] = useState("");
+  const [loading, setLoading] = useState(false);
 
   const handleSubmit = async () => {
     const [msgCorreo, correoValido] = validarCorreo(correo);
@@ -19,32 +21,35 @@ export function LoginForm() {
     setMensajePassword(msgPassword);
 
     if (correoValido && passwordValido) {
+      setLoading(true);
       try {
-        const response = await fetch('http://localhost:8082/api/usuarios');
+        // Usar el nuevo servicio de autenticación con JWT
+        const result = await login(correo, password);
         
-        if (!response.ok) {
-          throw new Error('Error al obtener datos del servidor');
-        }
-
-        const usuarios = await response.json();
-        // console.log("Usuarios del backend:", usuarios);
-        
-        // Buscar el usuario que coincida con el correo
-        const usuarioEncontrado = usuarios.find(user => user.email === correo);
-        
-        if (usuarioEncontrado && usuarioEncontrado.password === password) {
-          // Credenciales correctas
+        if (result.success) {
+          // Login exitoso
           setMensajeFinal("Inicio de sesión exitoso.");
-          // Redirigir a la página de productos
-          navigate('/dashboard');
+          
+          // Redirigir según el rol del usuario
+          setTimeout(() => {
+            if (result.user && result.user.rol === 'ADMIN') {
+              // Si es administrador, redirigir al dashboard
+              navigate('/dashboard');
+            } else {
+              // Si es usuario normal, redirigir al home
+              navigate('/');
+            }
+          }, 500);
         } else {
           // Credenciales incorrectas
-          setMensajeFinal("Correo o contraseña incorrectos.");
+          setMensajeFinal(result.message || "Correo o contraseña incorrectos.");
         }
         
       } catch (error) {
         console.error('Error en el inicio de sesión:', error);
         setMensajeFinal("Error en el inicio de sesión. Por favor, intenta nuevamente.");
+      } finally {
+        setLoading(false);
       }
     } else {
       setMensajeFinal("Por favor, valida los campos correctamente.");
@@ -96,8 +101,13 @@ export function LoginForm() {
             </div>
 
             <div className="text-end">
-              <button type="button" className="btn btn-dark" onClick={handleSubmit}>
-                Entrar
+              <button 
+                type="button" 
+                className="btn btn-dark" 
+                onClick={handleSubmit}
+                disabled={loading}
+              >
+                {loading ? "Iniciando sesión..." : "Entrar"}
               </button>
               <br />
               <small className={mensajeFinal.includes("exitoso") ? "text-success" : "text-danger small error"}>
