@@ -61,7 +61,7 @@ El proyecto busca mantener una estética coherente con la identidad artesanal, u
 1. **Clonar el repositorio**
    ```bash
    git clone https://github.com/tbtha/tejedoraypunto.git
-   cd tejedoraypunto-frontend
+   cd tejedoraypunto
    ```
 
 2. **Instalar dependencias**
